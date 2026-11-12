@@ -5,7 +5,13 @@ export const site = {
   tagline: "Perfume bottles & packaging, made to order",
   description:
     "Gita Perfume Bottle supplies glass perfume bottles, spray atomizers, roll-on bottles, caps and custom packaging for perfume brands, refill shops and resellers. Low MOQ, custom logo printing, nationwide shipping.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.gitaperfumebottle.com", // PLACEHOLDER domain
+  // Real domain goes in NEXT_PUBLIC_SITE_URL at launch. Until then, use the Vercel URL
+  // so canonical links, sitemap and social previews point at a page that exists.
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://gitaperfume.vercel.app"),
+  // Mockup stays out of Google until launch. Set NEXT_PUBLIC_ALLOW_INDEXING=1 on the live domain.
+  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "1",
   locale: "en_US",
   phone: "+62 812-0000-0000", // PLACEHOLDER
   whatsapp: "6281200000000", // PLACEHOLDER (digits only, for wa.me links)

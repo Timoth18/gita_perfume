@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { productPhotos } from "@/lib/images";
 import { notFound } from "next/navigation";
 import BottleArt from "@/components/BottleArt";
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -31,6 +33,7 @@ export default async function ProductPage({ params }: Params) {
   const p = getProduct((await params).slug);
   if (!p) notFound();
   const cat = getCategory(p.category)!;
+  const photos = productPhotos(p.slug);
   const related = productsIn(p.category).filter((x) => x.slug !== p.slug).concat(products.filter((x) => x.featured && x.category !== p.category)).slice(0, 4);
   const specs: [string, string][] = [
     ["Available sizes", p.sizes.join(", ")],
@@ -47,14 +50,33 @@ export default async function ProductPage({ params }: Params) {
           <Breadcrumbs items={[{ href: "/catalog", label: "Catalog" }, { href: `/catalog/${cat.slug}`, label: cat.name }, { href: `/products/${p.slug}`, label: p.name }]} />
           <div className="pdp">
             <div className="pdp-gallery">
-              <div className="pdp-main"><BottleArt shape={p.shape} glass={p.glass} cap={p.cap} title={p.name} /></div>
-              <div className="pdp-thumbs" aria-hidden="true">
-                {p.finishes.slice(0, 4).map((f, i) => (
-                  <div key={f} className="pdp-thumb">
-                    <BottleArt shape={p.shape} glass={["#e9dfd0", "#dde3e6", "#f2d9d0", "#d9d2e6"][i]} cap={p.cap} />
+              {photos.length > 0 ? (
+                <>
+                  <div className="pdp-main has-photo">
+                    <Image src={photos[0]} alt={p.name} fill priority sizes="(max-width: 860px) 100vw, 560px" />
                   </div>
-                ))}
-              </div>
+                  {photos.length > 1 && (
+                    <div className="pdp-thumbs">
+                      {photos.slice(1).map((src, i) => (
+                        <a key={src} href={src} target="_blank" rel="noopener" className="pdp-thumb has-photo">
+                          <Image src={src} alt={`${p.name}, photo ${i + 2}`} fill sizes="140px" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <>
+                  <div className="pdp-main"><BottleArt shape={p.shape} glass={p.glass} cap={p.cap} title={p.name} /></div>
+                  <div className="pdp-thumbs" aria-hidden="true">
+                    {p.finishes.slice(0, 4).map((f, i) => (
+                      <div key={f} className="pdp-thumb">
+                        <BottleArt shape={p.shape} glass={["#e9dfd0", "#dde3e6", "#f2d9d0", "#d9d2e6"][i]} cap={p.cap} />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
             <div className="pdp-info">
               <p className="eyebrow">{cat.name}</p>
@@ -101,6 +123,7 @@ export default async function ProductPage({ params }: Params) {
           material: p.material,
           brand: { "@type": "Brand", name: site.name },
           url: `${site.url}/products/${p.slug}`,
+          ...(photos.length ? { image: photos.map((s) => `${site.url}${s}`) } : {}),
           // Phase 2: add image, offers (price / availability) once real data exists.
         }}
       />

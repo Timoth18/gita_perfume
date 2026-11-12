@@ -1,5 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
+import { categoryPhoto, heroPhoto } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
+import ClientLogos from "@/components/ClientLogos";
 import ProductCard from "@/components/ProductCard";
 import { categories, products } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
@@ -26,6 +29,7 @@ const testimonials = [
 
 export default function Home() {
   const featured = products.filter((p) => p.featured).slice(0, 8);
+  const hero = heroPhoto();
   return (
     <>
       <section className="hero">
@@ -49,13 +53,21 @@ export default function Home() {
               <div><dt>Minimum order</dt><dd>100 pcs</dd></div>
             </dl>
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="hero-bottle b1"><BottleArt shape="tall" glass="#dde3e6" cap="#1f1b16" /></div>
-            <div className="hero-bottle b2"><BottleArt shape="square" glass="#e9dfd0" cap="#b08a4a" /></div>
-            <div className="hero-bottle b3"><BottleArt shape="round" glass="#f2d9d0" cap="#b08a4a" /></div>
-          </div>
+          {hero ? (
+            <div className="hero-photo">
+              <Image src={hero} alt={`${site.name} perfume bottles`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
+            </div>
+          ) : (
+            <div className="hero-art" aria-hidden="true">
+              <div className="hero-bottle b1"><BottleArt shape="tall" glass="#dde3e6" cap="#1f1b16" /></div>
+              <div className="hero-bottle b2"><BottleArt shape="square" glass="#e9dfd0" cap="#b08a4a" /></div>
+              <div className="hero-bottle b3"><BottleArt shape="round" glass="#f2d9d0" cap="#b08a4a" /></div>
+            </div>
+          )}
         </div>
       </section>
+
+      <ClientLogos />
 
       <section className="section" aria-labelledby="cat-h">
         <div className="container">
@@ -67,13 +79,20 @@ export default function Home() {
             <Link href="/catalog" className="link-arrow">View full catalog</Link>
           </div>
           <div className="cat-grid">
-            {categories.map((c) => (
+            {categories.map((c) => {
+              const photo = categoryPhoto(c.slug);
+              return (
               <Link key={c.slug} href={`/catalog/${c.slug}`} className="cat-tile">
-                <BottleArt shape={c.shape} title={c.name} glass={c.shape === "box" ? "#2d2a26" : "#e9dfd0"} cap="#b08a4a" />
+                {photo ? (
+                  <span className="cat-photo"><Image src={photo} alt={c.name} fill sizes="96px" /></span>
+                ) : (
+                  <BottleArt shape={c.shape} title={c.name} glass={c.shape === "box" ? "#2d2a26" : "#e9dfd0"} cap="#b08a4a" />
+                )}
                 <h3>{c.name}</h3>
                 <p className="muted small">{c.blurb}</p>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

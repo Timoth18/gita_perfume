@@ -21,6 +21,10 @@ Per-page title/description/canonical, Open Graph + Twitter cards, generated OG i
 `sitemap.xml`, `robots.txt`, JSON-LD (Organization, LocalBusiness, BreadcrumbList,
 ItemList, Product, FAQPage), semantic HTML, mobile-first responsive layout.
 
+## Environment variables
+- `NEXT_PUBLIC_SITE_URL` — the live domain, e.g. `https://www.gitaperfumebottle.com` (defaults to the Vercel URL)
+- `NEXT_PUBLIC_ALLOW_INDEXING=1` — let search engines index the site. Leave unset while it is a mockup.
+
 ## Before launch
 - Replace placeholder contact info, domain and copy; add real product photos (next/image)
 - Hook the contact form to email/WhatsApp; add Google Search Console + Analytics

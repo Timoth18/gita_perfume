@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: site.description,
   },
   twitter: { card: "summary_large_image", title: site.name, description: site.description },
-  robots: { index: true, follow: true },
+  robots: site.allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
   // PLACEHOLDER: add Google Search Console token in Phase 1 SEO setup
   // verification: { google: "..." },
 };

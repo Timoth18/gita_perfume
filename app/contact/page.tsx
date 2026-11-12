@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const faqs = [
-  { q: "What is your minimum order quantity?", a: "Most glass bottles start from 100 pcs. Caps, pumps and boxes start from 300–500 pcs." },
+  { q: "What is your minimum order quantity?", a: "There is no minimum order: you can buy from 1 pc as long as the item is in stock. Custom printing and custom moulds may need a larger run; ask us for details." },
   { q: "Can you print my logo on the bottle?", a: "Yes. We offer screen printing, hot-stamping, frosting and colour spray. A digital proof is sent before production." },
   { q: "How long does production take?", a: "Ready-stock items ship in 1–3 working days. Custom orders usually take 2–4 weeks after sample approval." },
   { q: "Do you ship outside Jakarta?", a: "Yes, we ship to all of Indonesia via cargo and courier partners." },
@@ -72,7 +72,7 @@ export default function ContactPage() {
               <label>Estimated quantity
                 <select name="qty" defaultValue="">
                   <option value="" disabled>Choose a range</option>
-                  <option>100–500 pcs</option><option>500–2,000 pcs</option><option>2,000+ pcs</option>
+                  <option>1–100 pcs</option><option>100–500 pcs</option><option>500–2,000 pcs</option><option>2,000+ pcs</option>
                 </select>
               </label>
             </div>

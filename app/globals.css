@@ -268,10 +268,30 @@ a.contact-card:hover { border-color: var(--gold-2); }
 .ph-img.has-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 14px 10px; color: #fff; font-size: .9rem; background: linear-gradient(transparent, #1f1b16aa); z-index: 2; }
 .brand-logo { height: 40px; width: auto; }
 
+/* Trusted-by logo strip: every logo forced to the same muted ink tone so mixed brand colours sit quietly */
+.clients { border-block: 1px solid var(--line); padding: 36px 0 32px; background: var(--surface); }
+.clients-h { font: 600 .78rem var(--sans); text-transform: uppercase; letter-spacing: .16em; color: var(--muted); text-align: center; margin: 0 0 24px; }
+.clients-grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 32px; align-items: center; }
+.client-logo { position: relative; flex: 0 1 calc((100% - 5 * 32px) / 6); min-width: 120px; height: 64px; display: grid; place-items: center; text-align: center; }
+/* Every client logo is drawn in one palette colour (the logo file is a mask), so mixed brand colours never clash.
+   Logos are pre-cleaned to transparent PNGs of equal optical size. Change --logo-ink to recolour them all. */
+:root { --logo-ink: #7a6449; }
+.logo-mask { position: absolute; inset: 0; background: var(--logo-ink); -webkit-mask: no-repeat center / contain; mask: no-repeat center / contain; transition: background-color .25s; }
+.client-logo:hover .logo-mask { background: var(--ink); }
+.client-word { color: #7b7064; line-height: 1.1; font-size: 1.15rem; }
+.client-word.serif { font: 600 1.45rem var(--serif); }
+.client-word.serif-italic { font: italic 500 1.5rem var(--serif); }
+.client-word.caps { font: 600 .95rem var(--sans); letter-spacing: .22em; }
+.client-word.caps-wide { font: 500 .9rem var(--sans); letter-spacing: .38em; }
+.client-word.script { font: italic 600 1.7rem var(--serif); letter-spacing: -.02em; }
+.client-word.sans { font: 500 1.1rem var(--sans); letter-spacing: .04em; }
+.clients-note { text-align: center; font-size: .8rem; color: var(--muted); margin: 18px 0 0; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .product-grid { grid-template-columns: repeat(3, 1fr); }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .client-logo { flex-basis: calc((100% - 2 * 32px) / 3); }
   .usp-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -299,6 +319,8 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .cat-tile { padding: 16px; grid-template-columns: 72px 1fr; }
   .cat-tile svg, .cat-photo { width: 72px; height: 90px; }
   .usp-grid, .steps { grid-template-columns: 1fr; gap: 20px; }
+  .clients-grid { gap: 12px 20px; }
+  .client-logo { flex-basis: calc((100% - 20px) / 2); min-width: 0; height: 44px; }
   .stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stats div { padding-left: 10px; }
   .stats dd { font-size: 1.5rem; }

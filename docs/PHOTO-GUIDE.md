@@ -15,6 +15,7 @@ Product photos on a **white background** blend into the cream cards, so the whit
 | Home page hero | 1 | Portrait 4:5, min 1200×1500 | `public/images/hero.jpg` |
 | About page (team or shop front) | 1 | Portrait 4:5 | `public/images/about.jpg` |
 | Warehouse / workshop gallery | 4 (or 8) | Landscape 4:3 (e.g. 1600×1200) | `public/images/facility/01-warehouse.jpg`, `02-screen-printing.jpg` … |
+| Client brand logos ("Trusted by" strip) | up to 12 | Any; PNG with transparent or plain background | `public/images/clients/01-Brand-Name.png` … |
 | Logo (optional) | 1 | Transparent PNG or SVG | `public/images/logo.png` or `logo.svg` |
 
 `<product>` is the product's web name, e.g. `aurora-square-50ml`. The full list is in `lib/products.ts`
@@ -22,6 +23,18 @@ Product photos on a **white background** blend into the cream cards, so the whit
 `02-screen-printing.jpg` shows as "Screen printing"; the number only sets the order.
 
 Formats: JPG, PNG or WebP. Keep each file under ~2 MB; the site resizes them for phones.
+
+## Client brand logos
+Every logo in the "Trusted by" strip is shown in **one bronze colour** (the logo file is used as a stencil),
+so brand colours never clash with the site. What matters is a clean shape:
+- Best: PNG or SVG with a **transparent background**. A plain white or single-colour background also works
+  if it is cleaned first (see below); a photo or busy background does not.
+- Crop out taglines or partial text you don't want shown.
+- The file name sets the order and the alt text: `03-Geamoore.png` shows third, labelled "Geamoore".
+- New logos should be cleaned and sized like the existing ones (transparent, 600×200, equal visual weight).
+  Send them to the developer, or run them through the same clean-up.
+- Change `--logo-ink` in `app/globals.css` to recolour all logos at once.
+- Get each brand's permission before showing its logo.
 
 ## How to shoot so the site looks consistent
 

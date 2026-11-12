@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { categoryPhoto, heroPhoto } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
+import ClientLogos from "@/components/ClientLogos";
 import ProductCard from "@/components/ProductCard";
 import { categories, products } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
@@ -65,6 +66,8 @@ export default function Home() {
           )}
         </div>
       </section>
+
+      <ClientLogos />
 
       <section className="section" aria-labelledby="cat-h">
         <div className="container">

@@ -15,12 +15,12 @@ function find(dir: string, base: string): string | undefined {
   }
 }
 
-function list(dir: string): string[] {
+function list(dir: string, exts: string[] = EXTS): string[] {
   const abs = path.join(PUBLIC, dir);
   if (!fs.existsSync(abs)) return [];
   return fs
     .readdirSync(abs)
-    .filter((f) => EXTS.includes(f.split(".").pop()!.toLowerCase()))
+    .filter((f) => exts.includes(f.split(".").pop()!.toLowerCase()))
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
     .map((f) => `/${dir}/${f}`);
 }
@@ -43,5 +43,9 @@ export const facilityPhotos = () => list("images/facility");
 /** Turns "02-screen-printing.jpg" into "Screen printing" for alt text and captions. */
 export function captionFromFile(src: string) {
   const base = src.split("/").pop()!.replace(/\.[^.]+$/, "").replace(/^\d+[-_ ]*/, "").replace(/[-_]+/g, " ");
-  return base.charAt(0).toUpperCase() + base.slice(1);
+  // Keep the file's own capitals (e.g. "ZF-Parfume" -> "ZF Parfume"); otherwise capitalise the first letter.
+  return base === base.toLowerCase() ? base.charAt(0).toUpperCase() + base.slice(1) : base;
 }
+
+/** Client brand logos for the "Trusted by" strip: every image (incl. SVG) in /public/images/clients, in filename order. */
+export const clientLogos = () => list("images/clients", [...EXTS, "svg"]);

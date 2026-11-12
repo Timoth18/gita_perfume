@@ -15,7 +15,7 @@ const steps = [
 ];
 
 const usps = [
-  { t: "Low MOQ", d: "Start from 100 pcs so new brands can launch without overstock." },
+  { t: "No Minimum Order", d: "No minimum order as long as stock is available." },
   { t: "Custom logo", d: "Printing, hot-stamping and engraving done in-house." },
   { t: "Ready stock", d: "Popular sizes ship within 1–3 working days." },
   { t: "Quality checked", d: "Every batch is leak-tested and inspected before packing." },
@@ -50,7 +50,7 @@ export default function Home() {
             <dl className="stats">
               <div><dt>Bottle models</dt><dd>200+</dd></div>
               <div><dt>Brands served</dt><dd>1,500+</dd></div>
-              <div><dt>Minimum order</dt><dd>100 pcs</dd></div>
+              <div><dt>Minimum order</dt><dd>1 pcs</dd></div>
             </dl>
           </div>
           {hero ? (

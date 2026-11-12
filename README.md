@@ -23,7 +23,7 @@ ItemList, Product, FAQPage), semantic HTML, mobile-first responsive layout.
 
 ## Environment variables
 - `NEXT_PUBLIC_SITE_URL` — the live domain, e.g. `https://www.gitaperfumebottle.com` (defaults to the Vercel URL)
-- `NEXT_PUBLIC_ALLOW_INDEXING=1` — let search engines index the site. Leave unset while it is a mockup.
+- Indexing: the production deployment is indexable by default; previews and local dev are always `noindex`. Set `NEXT_PUBLIC_ALLOW_INDEXING=0` to hide production too.
 
 ## Photos
 Photos are picked up by file name from `public/images/` (products, categories, hero, about,

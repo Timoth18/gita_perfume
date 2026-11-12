@@ -10,8 +10,10 @@ export const site = {
   url:
     process.env.NEXT_PUBLIC_SITE_URL ||
     (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://gitaperfume.vercel.app"),
-  // Mockup stays out of Google until launch. Set NEXT_PUBLIC_ALLOW_INDEXING=1 on the live domain.
-  allowIndexing: process.env.NEXT_PUBLIC_ALLOW_INDEXING === "0",
+  // Search engines may index the PRODUCTION deployment only. Vercel preview builds (one per PR)
+  // and local dev stay noindex so duplicates never reach Google.
+  // Set NEXT_PUBLIC_ALLOW_INDEXING=0 in Vercel to hide production too.
+  allowIndexing: process.env.VERCEL_ENV === "production" && process.env.NEXT_PUBLIC_ALLOW_INDEXING !== "0",
   locale: "en_US",
   phone: "+62 812-0000-0000", // PLACEHOLDER
   whatsapp: "6281200000000", // PLACEHOLDER (digits only, for wa.me links)

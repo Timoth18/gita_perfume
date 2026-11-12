@@ -237,6 +237,37 @@ a.contact-card:hover { border-color: var(--gold-2); }
 .wa-fab { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 58px; height: 58px; border-radius: 50%; background: var(--wa); color: #fff; display: grid; place-items: center; box-shadow: 0 10px 24px -8px #0006; transition: transform .2s; }
 .wa-fab:hover { transform: scale(1.06); }
 
+/* Real photos (used when files exist in /public/images)
+   Every photo gets the same colour grade so client shots of any quality sit inside the palette.
+   Tweak these three tokens to change the look site-wide. */
+:root {
+  --photo-grade: saturate(.82) sepia(.14) contrast(.97) brightness(1.02); /* warm, slightly muted */
+  --photo-wash: #e9d9bd;          /* cream wash laid over scene photos */
+  --photo-wash-strength: .22;
+}
+.has-photo { position: relative; overflow: hidden; padding: 0 !important; isolation: isolate; }
+.has-photo img { object-fit: cover; filter: var(--photo-grade); }
+/* Scene photos (hero, about, facility): warm wash so cool/fluorescent shots match the cream page */
+.hero-photo::after, .about-photo::after, .ph-img.has-photo::after {
+  content: ""; position: absolute; inset: 0; background: var(--photo-wash);
+  mix-blend-mode: multiply; opacity: var(--photo-wash-strength); pointer-events: none; z-index: 1;
+}
+/* Product shots: shown whole (no cropping) and multiplied onto the card, so a white studio
+   background melts into the cream card instead of showing as a white box */
+.card-media.has-photo, .pdp-main.has-photo, .pdp-thumb.has-photo, .cat-photo {
+  background: linear-gradient(180deg, #f6efe3, #ece2d2);
+}
+.card-media.has-photo img, .pdp-main.has-photo img, .pdp-thumb.has-photo img, .cat-photo img {
+  object-fit: contain; mix-blend-mode: multiply; padding: 8%;
+}
+.hero-photo { position: relative; aspect-ratio: 4 / 5; width: 100%; max-width: 520px; justify-self: center; border-radius: 200px 200px var(--radius) var(--radius); overflow: hidden; background: var(--tint); }
+.hero-photo img, .about-photo img, .ph-img.has-photo img { object-fit: cover; filter: var(--photo-grade); }
+.cat-photo { grid-row: span 2; position: relative; width: 96px; height: 120px; border-radius: 10px; overflow: hidden; isolation: isolate; }
+.about-photo { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; background: var(--tint); isolation: isolate; }
+.ph-img.has-photo { isolation: isolate; }
+.ph-img.has-photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 24px 14px 10px; color: #fff; font-size: .9rem; background: linear-gradient(transparent, #1f1b16aa); z-index: 2; }
+.brand-logo { height: 40px; width: auto; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .product-grid { grid-template-columns: repeat(3, 1fr); }
@@ -251,7 +282,7 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .header-inner { height: 64px; }
   .nav-mobile nav { top: 64px; }
   .hero-grid, .split, .pdp, .contact-grid { grid-template-columns: 1fr; }
-  .hero-art { max-width: 360px; order: -1; }
+  .hero-art, .hero-photo { max-width: 360px; order: -1; }
   .pdp-gallery { position: static; }
   .quote-grid { grid-template-columns: 1fr; }
   .timeline, .gallery { grid-template-columns: repeat(2, 1fr); }
@@ -266,7 +297,7 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .card-body h3 { font-size: 1.08rem; }
   .cat-grid { grid-template-columns: 1fr; gap: 12px; }
   .cat-tile { padding: 16px; grid-template-columns: 72px 1fr; }
-  .cat-tile svg { width: 72px; height: 90px; }
+  .cat-tile svg, .cat-photo { width: 72px; height: 90px; }
   .usp-grid, .steps { grid-template-columns: 1fr; gap: 20px; }
   .stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stats div { padding-left: 10px; }

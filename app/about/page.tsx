@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { aboutPhoto, captionFromFile, facilityPhotos } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { site } from "@/lib/site";
@@ -25,6 +27,8 @@ const values = [
 ];
 
 export default function AboutPage() {
+  const story = aboutPhoto();
+  const facility = facilityPhotos();
   return (
     <>
       <section className="page-hero">
@@ -51,10 +55,14 @@ export default function AboutPage() {
             </p>
             <p className="muted small"><em>Placeholder copy. Replace with the client’s real story.</em></p>
           </div>
-          <div className="about-art" aria-hidden="true">
-            <BottleArt shape="flask" glass="#e7e0c9" cap="#6b4f2a" />
-            <BottleArt shape="rollon" glass="#e8d6b8" cap="#b08a4a" />
-          </div>
+          {story ? (
+            <div className="about-photo"><Image src={story} alt={`The ${site.name} team`} fill sizes="(max-width: 860px) 100vw, 480px" /></div>
+          ) : (
+            <div className="about-art" aria-hidden="true">
+              <BottleArt shape="flask" glass="#e7e0c9" cap="#6b4f2a" />
+              <BottleArt shape="rollon" glass="#e8d6b8" cap="#b08a4a" />
+            </div>
+          )}
         </div>
       </section>
 
@@ -87,9 +95,16 @@ export default function AboutPage() {
           <p className="eyebrow">Facility</p>
           <h2 id="fac-h">Warehouse &amp; printing workshop</h2>
           <div className="gallery">
-            {["Warehouse", "Screen printing", "Quality control", "Packing"].map((t) => (
-              <figure key={t} className="ph-img"><span>{t}</span><figcaption className="sr-only">{t} photo placeholder</figcaption></figure>
-            ))}
+            {facility.length > 0
+              ? facility.map((src) => (
+                  <figure key={src} className="ph-img has-photo">
+                    <Image src={src} alt={captionFromFile(src)} fill sizes="(max-width: 860px) 50vw, 280px" />
+                    <figcaption>{captionFromFile(src)}</figcaption>
+                  </figure>
+                ))
+              : ["Warehouse", "Screen printing", "Quality control", "Packing"].map((t) => (
+                  <figure key={t} className="ph-img"><span>{t}</span><figcaption className="sr-only">{t} photo placeholder</figcaption></figure>
+                ))}
           </div>
         </div>
       </section>

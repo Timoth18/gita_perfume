@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!c) return {};
   return {
     title: c.name,
-    description: `${c.blurb} Wholesale ${c.name.toLowerCase()} with low MOQ and custom logo from Gita Perfume Bottle.`,
+    description: `${c.blurb} Wholesale ${c.name.toLowerCase()} with no minimum order and custom logo from Gita Perfume Bottle.`,
     alternates: { canonical: `/catalog/${c.slug}` },
     openGraph: { url: `/catalog/${c.slug}` },
   };

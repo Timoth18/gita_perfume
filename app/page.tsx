@@ -39,7 +39,7 @@ export default function Home() {
             <h1>Bottles that make your fragrance <em>unforgettable</em></h1>
             <p className="lead">
               {site.name} supplies glass perfume bottles, atomizers, roll-ons, caps and custom packaging
-              for perfume brands, refill shops and resellers. Low minimum order, custom logo, fast delivery.
+              for perfume brands, refill shops and resellers. No minimum order, custom logo, fast delivery.
             </p>
             <div className="cta-row">
               <Link href="/catalog" className="btn">Browse the catalog</Link>
@@ -50,7 +50,7 @@ export default function Home() {
             <dl className="stats">
               <div><dt>Bottle models</dt><dd>200+</dd></div>
               <div><dt>Brands served</dt><dd>1,500+</dd></div>
-              <div><dt>Minimum order</dt><dd>1 pcs</dd></div>
+              <div><dt>Minimum order</dt><dd>1 pc</dd></div>
             </dl>
           </div>
           {hero ? (

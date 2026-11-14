@@ -36,6 +36,8 @@ export default async function ProductPage({ params }: Params) {
   const photos = productPhotos(p.slug);
   const related = productsIn(p.category).filter((x) => x.slug !== p.slug).concat(products.filter((x) => x.featured && x.category !== p.category)).slice(0, 4);
   const specs: [string, string][] = [
+    ["Catalog name", p.code],
+    ...(p.badge === "Pre-order" ? [["Availability", "Pre-order"] as [string, string]] : []),
     ["Available sizes", p.sizes.join(", ")],
     ["Material", p.material],
     ["Neck / closure", p.neck],
@@ -79,7 +81,7 @@ export default async function ProductPage({ params }: Params) {
               )}
             </div>
             <div className="pdp-info">
-              <p className="eyebrow">{cat.name}</p>
+              <p className="eyebrow">{cat.name}{p.badge === "New" && <> · <strong>New</strong></>}</p>
               <h1>{p.name}</h1>
               <p className="lead">{p.summary}</p>
               <div className="option-group">
@@ -91,7 +93,7 @@ export default async function ProductPage({ params }: Params) {
                 <ul className="pills">{p.finishes.map((s) => <li key={s}>{s}</li>)}</ul>
               </div>
               <div className="cta-row">
-                <a className="btn" href={waLink(`Hello Gita, I'd like a quote for ${p.name}.`)} target="_blank" rel="noopener">Request a quote</a>
+                <a className="btn" href={waLink(`Hello Gita, I'd like a quote for ${p.name} (${p.code}).`)} target="_blank" rel="noopener">Request a quote</a>
                 <Link className="btn btn-ghost" href="/contact">Ask a question</Link>
               </div>
               <p className="muted small">Prices depend on quantity and customisation. We usually reply within one working day.</p>

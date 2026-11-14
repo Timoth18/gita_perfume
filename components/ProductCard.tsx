@@ -17,7 +17,7 @@ export default function ProductCard({ p }: { p: Product }) {
           )}
         </div>
         <div className="card-body">
-          <p className="eyebrow">{getCategory(p.category)?.name}</p>
+          <p className="eyebrow">{getCategory(p.category)?.name}{p.badge === "New" && <> · <strong>New</strong></>}</p>
           <h3>{p.name}</h3>
           <p className="muted small">{p.sizes.join(" · ")} — MOQ {p.moq}</p>
         </div>

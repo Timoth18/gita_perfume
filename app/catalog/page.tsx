@@ -3,9 +3,9 @@ import CatalogView from "@/components/CatalogView";
 import { products } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Product Catalog — Perfume Bottles, Atomizers & Packaging",
+  title: "Product Catalog — Perfume Spray Bottles, Roll-ons & Travel Sprays",
   description:
-    "Browse glass perfume bottles, spray atomizers, roll-on bottles, reed diffuser bottles, caps, pumps and packaging boxes. No minimum order and custom logo printing available.",
+    "Browse 200+ glass perfume bottles: screw-neck, easy-pump and crimp sprays, mini travel sprays, roll-ons, frosted bottles and the GP pre-order series. No minimum order and custom logo printing available.",
   alternates: { canonical: "/catalog" },
   openGraph: { url: "/catalog" },
 };
@@ -14,7 +14,7 @@ export default function CatalogPage() {
   return (
     <CatalogView
       title="Product catalog"
-      intro="Bottles, closures and packaging for perfume, attar and home fragrance. All items can be customised with your logo."
+      intro="Glass perfume bottles from 3 ml to 150 ml, from our October 2026 catalog. Order from 1 pc; all items can be customised with your logo."
       items={products}
     />
   );

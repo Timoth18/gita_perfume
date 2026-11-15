@@ -18,7 +18,7 @@ Product photos on a **white background** blend into the cream cards, so the whit
 | Client brand logos ("Trusted by" strip) | up to 12 | Any; PNG with transparent or plain background | `public/images/clients/01-Brand-Name.png` … |
 | Logo (optional) | 1 | Transparent PNG or SVG | `public/images/logo.png` or `logo.svg` |
 
-`<product>` is the product's web name, e.g. `aurora-square-50ml`. The full list is in `lib/products.ts`
+`<product>` is the product's web name, e.g. `casa-warna`. The full list is in `lib/products.ts`
 (the `slug` field) and in each product page's address. Gallery captions come from the file name:
 `02-screen-printing.jpg` shows as "Screen printing"; the number only sets the order.
 

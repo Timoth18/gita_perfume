@@ -271,8 +271,8 @@ a.contact-card:hover { border-color: var(--gold-2); }
 /* Trusted-by logo strip */
 .clients { border-block: 1px solid var(--line); padding: 36px 0 32px; background: var(--surface); }
 .clients-h { font: 600 .78rem var(--sans); text-transform: uppercase; letter-spacing: .16em; color: var(--muted); text-align: center; margin: 0 0 24px; }
-.clients-grid { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 32px; align-items: center; }
-.client-logo { position: relative; flex: 0 1 calc((100% - 3 * 32px) / 4); min-width: 120px; height: 64px; display: grid; place-items: center; text-align: center; }
+.clients-grid { list-style: none; margin: 0 auto; max-width: 900px; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 32px; align-items: center; }
+.client-logo { position: relative; flex: 0 1 calc((100% - 2 * 32px) / 3); min-width: 0; height: 64px; display: grid; place-items: center; text-align: center; }
 /* Client logos keep their original brand colours. Files are pre-cleaned transparent PNGs of equal optical size. */
 .logo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .client-word { color: #7b7064; line-height: 1.1; font-size: 1.15rem; }
@@ -288,7 +288,7 @@ a.contact-card:hover { border-color: var(--gold-2); }
 @media (max-width: 1024px) {
   .product-grid { grid-template-columns: repeat(3, 1fr); }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
-  .client-logo { flex-basis: calc((100% - 3 * 32px) / 4); }
+  .client-logo { flex-basis: calc((100% - 2 * 32px) / 3); }
   .usp-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -317,7 +317,7 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .cat-tile svg, .cat-photo { width: 72px; height: 90px; }
   .usp-grid, .steps { grid-template-columns: 1fr; gap: 20px; }
   .clients-grid { gap: 12px 20px; }
-  .client-logo { flex-basis: calc((100% - 20px) / 2); min-width: 0; height: 44px; }
+  .client-logo { flex-basis: calc((100% - 40px) / 3); height: 44px; }
   .stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .stats div { padding-left: 10px; }
   .stats dd { font-size: 1.5rem; }

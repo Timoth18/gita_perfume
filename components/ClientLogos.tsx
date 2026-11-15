@@ -22,13 +22,9 @@ export default function ClientLogos() {
                 const name = captionFromFile(src);
                 return (
                   <li key={src} className="client-logo" title={name}>
-                    {/* The logo file is used as a mask and filled with one palette colour, so every brand matches the site */}
-                    <span
-                      className="logo-mask"
-                      role="img"
-                      aria-label={name}
-                      style={{ WebkitMaskImage: `url("${src}")`, maskImage: `url("${src}")` }}
-                    />
+                    {/* Shown in each brand's original colours */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={src} alt={name} className="logo-img" loading="lazy" width={600} height={200} />
                   </li>
                 );
               })

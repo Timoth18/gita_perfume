@@ -25,15 +25,14 @@ Product photos on a **white background** blend into the cream cards, so the whit
 Formats: JPG, PNG or WebP. Keep each file under ~2 MB; the site resizes them for phones.
 
 ## Client brand logos
-Every logo in the "Trusted by" strip is shown in **one bronze colour** (the logo file is used as a stencil),
-so brand colours never clash with the site. What matters is a clean shape:
+Every logo in the "Trusted by" strip is shown in **its brand's original colours**, exactly as in the file.
+What matters is a clean cutout:
 - Best: PNG or SVG with a **transparent background**. A plain white or single-colour background also works
   if it is cleaned first (see below); a photo or busy background does not.
 - Crop out taglines or partial text you don't want shown.
 - The file name sets the order and the alt text: `03-Geamoore.png` shows third, labelled "Geamoore".
 - New logos should be cleaned and sized like the existing ones (transparent, 600×200, equal visual weight).
   Send them to the developer, or run them through the same clean-up.
-- Change `--logo-ink` in `app/globals.css` to recolour all logos at once.
 - Get each brand's permission before showing its logo.
 
 ## How to shoot so the site looks consistent

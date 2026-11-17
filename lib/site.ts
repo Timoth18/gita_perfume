@@ -15,14 +15,14 @@ export const site = {
   // Set NEXT_PUBLIC_ALLOW_INDEXING=0 in Vercel to hide production too.
   allowIndexing: process.env.VERCEL_ENV === "production" && process.env.NEXT_PUBLIC_ALLOW_INDEXING !== "0",
   locale: "en_US",
-  phone: "+62 812-0000-0000", // PLACEHOLDER
-  whatsapp: "6281200000000", // PLACEHOLDER (digits only, for wa.me links)
+  phone: "+62 812-9231-3443",
+  whatsapp: "6281292313443", // digits only, for wa.me links
   email: "hello@gitaperfumebottle.com", // PLACEHOLDER
   address: {
-    street: "Jl. Contoh Raya No. 123", // PLACEHOLDER
-    city: "Jakarta",
+    street: "Jl. KH. Hasyim Ashari No. 137",
+    city: "Jakarta Pusat",
     region: "DKI Jakarta",
-    postalCode: "10110",
+    postalCode: "10140",
     country: "ID",
   },
   hours: "Mon–Sat, 08:00–17:00 WIB", // PLACEHOLDER
@@ -40,6 +40,11 @@ export const nav = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
+
+/** Google Maps search link for the showroom address (no API key needed). */
+export const mapsQuery = `${site.address.street}, ${site.address.city} ${site.address.postalCode}, Indonesia`;
+export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapsQuery)}`;
+export const mapsEmbed = `https://www.google.com/maps?q=${encodeURIComponent(mapsQuery)}&output=embed`;
 
 export function waLink(text?: string) {
   const msg = text ?? `Hello ${site.name}, I'd like to ask about your products.`;

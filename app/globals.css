@@ -205,7 +205,8 @@ p { margin: 0 0 1em; }
 .contact-wa { background: #e8f8ee; border-color: #bfe8cf; }
 .contact-wa .eyebrow { color: #138a43; }
 a.contact-card:hover { border-color: var(--gold-2); }
-.map-ph { aspect-ratio: 16 / 10; border-radius: var(--radius); background: repeating-linear-gradient(0deg, #e6dccb 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, #e6dccb 0 1px, #f1eadf 1px 32px); display: grid; place-items: center; color: var(--muted); font-size: .9rem; }
+.map-embed { display: grid; gap: 8px; }
+.map-embed iframe { width: 100%; aspect-ratio: 16 / 10; border: 0; border-radius: var(--radius); background: #f1eadf; }
 .form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(20px, 4vw, 36px); display: grid; gap: 16px; }
 .form h2 { font-size: 1.9rem; margin: 0; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import { categories } from "@/lib/products";
-import { site, waLink } from "@/lib/site";
+import { site, waLink, mapsEmbed, mapsLink } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -47,8 +47,15 @@ export default function ContactPage() {
               <span>{site.address.city} {site.address.postalCode}, Indonesia</span>
               <span className="muted small">{site.hours}</span>
             </div>
-            <div className="map-ph" role="img" aria-label="Map placeholder">
-              <span>Google Map embed goes here</span>
+            <div className="map-embed">
+              <iframe
+                src={mapsEmbed}
+                title={`Map: ${site.name} showroom, ${site.address.street}, ${site.address.city}`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+              <a className="small" href={mapsLink} target="_blank" rel="noopener">Open in Google Maps</a>
             </div>
           </div>
 
@@ -103,6 +110,7 @@ export default function ContactPage() {
           telephone: site.phone,
           email: site.email,
           openingHours: "Mo-Sa 08:00-17:00",
+          hasMap: mapsLink,
           address: {
             "@type": "PostalAddress",
             streetAddress: site.address.street,

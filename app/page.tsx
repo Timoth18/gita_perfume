@@ -4,6 +4,7 @@ import { categoryPhoto, heroPhoto } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
 import ClientLogos from "@/components/ClientLogos";
 import ProductCard from "@/components/ProductCard";
+import Showroom from "@/components/Showroom";
 import { categories, products } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
@@ -131,6 +132,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <Showroom variant="home" />
 
       <section className="section section-dark" aria-labelledby="how-h">
         <div className="container">

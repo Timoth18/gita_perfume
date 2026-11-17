@@ -40,6 +40,9 @@ export const logoFile = () => find("images", "logo") ?? (fs.existsSync(path.join
 /** Warehouse / workshop gallery: every image in /public/images/facility, in filename order. */
 export const facilityPhotos = () => list("images/facility");
 
+/** Showroom photos (home + about): every image in /public/images/showroom, in filename order. */
+export const showroomPhotos = () => list("images/showroom");
+
 /** Turns "02-screen-printing.jpg" into "Screen printing" for alt text and captions. */
 export function captionFromFile(src: string) {
   const base = src.split("/").pop()!.replace(/\.[^.]+$/, "").replace(/^\d+[-_ ]*/, "").replace(/[-_]+/g, " ");

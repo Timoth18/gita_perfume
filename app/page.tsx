@@ -21,6 +21,10 @@ const usps = [
   { t: "Quality checked", d: "Every batch is leak-tested and inspected before packing." },
 ];
 
+// Hidden until the client has real customer quotes. To bring the section back,
+// replace these placeholders with real testimonials and set SHOW_TESTIMONIALS to true.
+const SHOW_TESTIMONIALS = false;
+
 const testimonials = [
   { q: "The square 50 ml bottles made our launch look premium at a price we could afford. Samples arrived in three days.", n: "Founder, local niche perfume brand" },
   { q: "Consistent quality across reorders, and the team answers WhatsApp quickly. Our refill shop relies on them.", n: "Owner, perfume refill shop" },
@@ -144,6 +148,7 @@ export default function Home() {
         </div>
       </section>
 
+      {SHOW_TESTIMONIALS && (
       <section className="section" aria-labelledby="test-h">
         <div className="container">
           <p className="eyebrow">Testimonials</p>
@@ -158,6 +163,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       <section className="cta-band">
         <div className="container cta-band-inner">

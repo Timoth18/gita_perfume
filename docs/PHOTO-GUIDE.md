@@ -14,6 +14,7 @@ Product photos on a **white background** blend into the cream cards, so the whit
 | Each category (optional) | 1 | Portrait 4:5 | `public/images/categories/<category>.jpg` |
 | Home page hero | 1 | Portrait 4:5, min 1200×1500 | `public/images/hero.jpg` |
 | About page (team or shop front) | 1 | Portrait 4:5 | `public/images/about.jpg` |
+| Showroom (home page + About page) | 2 (more are fine, shown on About) | Portrait 4:5 or 3:4 | `public/images/showroom/01-bottle-display-wall.jpg`, `02-sample-and-meeting-room.jpg` … (first two are used on the home page) |
 | Warehouse / workshop gallery | 4 (or 8) | Landscape 4:3 (e.g. 1600×1200) | `public/images/facility/01-warehouse.jpg`, `02-screen-printing.jpg` … |
 | Client brand logos ("Trusted by" strip) | up to 12 | Any; PNG with transparent or plain background | `public/images/clients/01-Brand-Name.png` … |
 | Logo (optional) | 1 | Transparent PNG or SVG | `public/images/logo.png` or `logo.svg` |

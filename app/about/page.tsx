@@ -4,6 +4,7 @@ import Image from "next/image";
 import { aboutPhoto, captionFromFile, facilityPhotos } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Showroom from "@/components/Showroom";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -90,7 +91,9 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section section-tint" aria-labelledby="fac-h">
+      <Showroom variant="about" />
+
+      <section className="section" aria-labelledby="fac-h">
         <div className="container">
           <p className="eyebrow">Facility</p>
           <h2 id="fac-h">Warehouse &amp; printing workshop</h2>

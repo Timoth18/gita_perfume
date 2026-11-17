@@ -11,7 +11,7 @@ Next.js 15 (App Router) + TypeScript, plain CSS. No client-side JS needed for th
     node scripts/make-preview.mjs     # -> preview/ (JS-free, relative links, opens from disk)
 
 ## Where things live
-- `lib/site.ts` — company name, phone, WhatsApp, email, address, domain (all PLACEHOLDER values marked)
+- `lib/site.ts` — company name, phone, WhatsApp, email, address, domain (remaining PLACEHOLDER values marked)
 - `lib/products.ts` — categories and products (moves to a CMS/DB in Phase 2)
 - `components/BottleArt.tsx` — SVG placeholder bottle illustrations; replace with real photos
 - `app/` — pages: `/`, `/catalog`, `/catalog/[category]`, `/products/[slug]`, `/about`, `/contact`

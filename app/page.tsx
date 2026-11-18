@@ -116,10 +116,9 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <Warehouse variant="strip" />
         </div>
       </section>
-
-      <Warehouse variant="home" />
 
       <section className="section" aria-labelledby="feat-h">
         <div className="container">

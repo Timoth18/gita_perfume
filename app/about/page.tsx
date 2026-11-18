@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { aboutPhoto, captionFromFile, facilityPhotos } from "@/lib/images";
+import { aboutPhoto } from "@/lib/images";
 import BottleArt from "@/components/BottleArt";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Showroom from "@/components/Showroom";
+import Warehouse from "@/components/Warehouse";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -29,7 +30,6 @@ const values = [
 
 export default function AboutPage() {
   const story = aboutPhoto();
-  const facility = facilityPhotos();
   return (
     <>
       <section className="page-hero">
@@ -93,24 +93,7 @@ export default function AboutPage() {
 
       <Showroom variant="about" />
 
-      <section className="section" aria-labelledby="fac-h">
-        <div className="container">
-          <p className="eyebrow">Facility</p>
-          <h2 id="fac-h">Warehouse &amp; printing workshop</h2>
-          <div className="gallery">
-            {facility.length > 0
-              ? facility.map((src) => (
-                  <figure key={src} className="ph-img has-photo">
-                    <Image src={src} alt={captionFromFile(src)} fill sizes="(max-width: 860px) 50vw, 280px" />
-                    <figcaption>{captionFromFile(src)}</figcaption>
-                  </figure>
-                ))
-              : ["Warehouse", "Screen printing", "Quality control", "Packing"].map((t) => (
-                  <figure key={t} className="ph-img"><span>{t}</span><figcaption className="sr-only">{t} photo placeholder</figcaption></figure>
-                ))}
-          </div>
-        </div>
-      </section>
+      <Warehouse variant="about" />
 
       <section className="cta-band">
         <div className="container cta-band-inner">

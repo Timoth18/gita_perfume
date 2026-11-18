@@ -314,7 +314,7 @@ a.contact-card:hover { border-color: var(--gold-2); }
 .wh-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
 .wh-strip .wh-img { aspect-ratio: 3 / 2; }
 .wh-band-section { padding: clamp(56px, 8vw, 96px) 0 0; }
-.wh-band-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 28px; }
+.wh-band-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 28px; }
 .wh-band-head h2 { margin-bottom: 0; }
 .wh-band { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 6px; height: clamp(260px, 32vw, 440px); }
 .wh-band .wh-img { border-radius: 0; height: 100%; }

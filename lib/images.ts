@@ -37,7 +37,7 @@ export const heroPhoto = () => find("images", "hero");
 export const aboutPhoto = () => find("images", "about");
 export const logoFile = () => find("images", "logo") ?? (fs.existsSync(path.join(PUBLIC, "images/logo.svg")) ? "/images/logo.svg" : undefined);
 
-/** Warehouse / workshop gallery: every image in /public/images/facility, in filename order. */
+/** Warehouse / ready-stock photos (home + about): every image in /public/images/facility, in filename order. */
 export const facilityPhotos = () => list("images/facility");
 
 /** Showroom photos (home + about): every image in /public/images/showroom, in filename order. */

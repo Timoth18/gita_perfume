@@ -5,6 +5,7 @@ import BottleArt from "@/components/BottleArt";
 import ClientLogos from "@/components/ClientLogos";
 import ProductCard from "@/components/ProductCard";
 import Showroom from "@/components/Showroom";
+import Warehouse from "@/components/Warehouse";
 import { categories, products } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
@@ -117,6 +118,8 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
+      <Warehouse variant="home" />
 
       <section className="section" aria-labelledby="feat-h">
         <div className="container">

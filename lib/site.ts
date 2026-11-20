@@ -1,4 +1,6 @@
 // Central business info. Everything marked PLACEHOLDER must be confirmed by the client.
+const shopeeUrl = "https://shopee.co.id/gifanbotolgrosir";
+
 export const site = {
   name: "Gita Perfume Bottle",
   shortName: "Gita",
@@ -15,8 +17,8 @@ export const site = {
   // Set NEXT_PUBLIC_ALLOW_INDEXING=0 in Vercel to hide production too.
   allowIndexing: process.env.VERCEL_ENV === "production" && process.env.NEXT_PUBLIC_ALLOW_INDEXING !== "0",
   locale: "en_US",
-  phone: "+62 812-9231-3443",
-  whatsapp: "6281292313443", // digits only, for wa.me links
+  phone: "+62 813-6666-5402",
+  whatsapp: "6281366665402", // digits only, for wa.me links
   email: "gitaperfume@gmail.com",
   address: {
     street: "Jl. KH. Hasyim Ashari No. 137",
@@ -27,11 +29,14 @@ export const site = {
   },
   hours: "Mon–Sat, 08:00–17:00 WIB", // PLACEHOLDER
   founded: "2015", // PLACEHOLDER
-  socials: {
-    instagram: "https://instagram.com/", // PLACEHOLDER
-    tiktok: "https://tiktok.com/", // PLACEHOLDER
-    shopee: "https://shopee.co.id/", // PLACEHOLDER
+  shopee: {
+    url: shopeeUrl,
+    handle: "gifanbotolgrosir",
   },
+  // Official profiles, used for JSON-LD sameAs. Add Instagram / TikTok here once the client shares them.
+  socials: {
+    shopee: shopeeUrl,
+  } as Record<string, string>,
 };
 
 export const nav = [

@@ -5,6 +5,7 @@ import BottleArt from "@/components/BottleArt";
 import ClientLogos from "@/components/ClientLogos";
 import ProductCard from "@/components/ProductCard";
 import Showroom from "@/components/Showroom";
+import Shipping from "@/components/Shipping";
 import Warehouse from "@/components/Warehouse";
 import { categories, products } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
@@ -61,7 +62,7 @@ export default function Home() {
           </div>
           {hero ? (
             <div className="hero-photo">
-              <Image src={hero} alt={`${site.name} perfume bottles`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
+              <Image src={hero} alt={`Glass perfume bottles with gold, rose-gold and black caps on display at ${site.name}`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
             </div>
           ) : (
             <div className="hero-art" aria-hidden="true">
@@ -152,6 +153,8 @@ export default function Home() {
           </ol>
         </div>
       </section>
+
+      <Shipping />
 
       {SHOW_TESTIMONIALS && (
       <section className="section" aria-labelledby="test-h">

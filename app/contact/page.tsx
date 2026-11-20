@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
+import { buildingPhoto } from "@/lib/images";
 import { categories } from "@/lib/products";
 import { site, waLink, mapsEmbed, mapsLink } from "@/lib/site";
 
@@ -19,6 +21,7 @@ const faqs = [
 ];
 
 export default function ContactPage() {
+  const building = buildingPhoto();
   return (
     <>
       <section className="page-hero">
@@ -57,6 +60,14 @@ export default function ContactPage() {
               />
               <a className="small" href={mapsLink} target="_blank" rel="noopener">Open in Google Maps</a>
             </div>
+            {building && (
+              <figure className="building">
+                <div className="building-img">
+                  <Image src={building} alt={`Front of the ${site.name} building, ${site.address.street}, ${site.address.city}`} fill sizes="(max-width: 860px) 100vw, 520px" />
+                </div>
+                <figcaption><strong>Look for this building</strong><span className="muted small">White three-storey building with grey shutters on the ground floor.</span></figcaption>
+              </figure>
+            )}
           </div>
 
           <form className="form" action="#" aria-labelledby="form-h">

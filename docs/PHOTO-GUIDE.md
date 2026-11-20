@@ -16,6 +16,8 @@ Product photos on a **white background** blend into the cream cards, so the whit
 | About page (team or shop front) | 1 | Portrait 4:5 | `public/images/about.jpg` |
 | Showroom (home page + About page) | 2 (more are fine, shown on About) | Portrait 4:5 or 3:4 | `public/images/showroom/01-bottle-display-wall.jpg`, `02-sample-and-meeting-room.jpg` … (first two are used on the home page) |
 | Warehouse / ready stock (home page + About page) | 3 (more are fine, shown on About) | Portrait 4:5 (e.g. 1200×1500) | `public/images/facility/01-ready-stock-warehouse.jpg`, `02-cartons-of-perfume-bottles.jpg` … (home uses the 1st as the main photo and the 3rd as the small one) |
+| Shipping steps (home page, "From container to your door") | 4 | Portrait 4:5 | `public/images/shipping/01-container-arrives.jpg` … `04-loaded-for-delivery.jpg` (caption from file name) |
+| Building front (Contact page) | 1 | Any; shown about square | `public/images/building.jpg` |
 | Client brand logos ("Trusted by" strip) | up to 12 | Any; PNG with transparent or plain background | `public/images/clients/01-Brand-Name.png` … |
 | Logo (optional) | 1 | Transparent PNG or SVG | `public/images/logo.png` or `logo.svg` |
 
@@ -50,6 +52,7 @@ What matters is a clean cutout:
 - Shoot in **portrait**, in daylight if possible, with tidy shelves and good light.
 - Warm light looks best. Strong blue or green fluorescent light still looks a bit cold even after the site's colour grade.
 - Avoid faces of staff who haven't agreed to be on the website.
+- Blur number plates and crop out courier/third-party branding and street billboards.
 - Keep big brand names printed on cartons (e.g. designer perfume names) out of frame, or crop them off.
 - Same-ish brightness across the set so the gallery looks even.
 

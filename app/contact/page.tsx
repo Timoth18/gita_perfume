@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
+import ShopeeIcon from "@/components/ShopeeIcon";
 import { buildingPhoto } from "@/lib/images";
 import { categories } from "@/lib/products";
 import { site, waLink, mapsEmbed, mapsLink } from "@/lib/site";
@@ -39,6 +40,12 @@ export default function ContactPage() {
               <span className="eyebrow">Fastest</span>
               <strong>WhatsApp</strong>
               <span>{site.phone}</span>
+            </a>
+            <a className="contact-card contact-shop" href={site.shopee.url} target="_blank" rel="noopener">
+              <span className="contact-shop-icon"><ShopeeIcon size={24} /></span>
+              <span className="eyebrow">Order online</span>
+              <strong>Shopee store</strong>
+              <span>shopee.co.id/{site.shopee.handle}</span>
             </a>
             <a className="contact-card" href={`mailto:${site.email}`}>
               <span className="eyebrow">Email</span>
@@ -122,6 +129,7 @@ export default function ContactPage() {
           email: site.email,
           openingHours: "Mo-Sa 08:00-17:00",
           hasMap: mapsLink,
+          sameAs: Object.values(site.socials),
           address: {
             "@type": "PostalAddress",
             streetAddress: site.address.street,

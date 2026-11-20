@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { categories } from "@/lib/products";
 import { nav, site, waLink } from "@/lib/site";
+import ShopeeIcon from "./ShopeeIcon";
 
 export default function Footer() {
   return (
@@ -31,6 +32,7 @@ export default function Footer() {
           <p>{site.address.street}<br />{site.address.city} {site.address.postalCode}, Indonesia</p>
           <p><a href={waLink()} target="_blank" rel="noopener">WhatsApp {site.phone}</a><br />
           <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <p><a className="footer-shop" href={site.shopee.url} target="_blank" rel="noopener"><ShopeeIcon size={16} /> Shop on Shopee</a></p>
           <p className="muted">{site.hours}</p>
         </address>
       </div>

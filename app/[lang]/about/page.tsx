@@ -33,10 +33,18 @@ export default async function AboutPage({ params }: Props) {
   return (
     <>
       <section className="page-hero">
-        <div className="container">
-          <Breadcrumbs lang={lang} items={[{ href: href(lang, "/about"), label: t.common.about }]} />
-          <h1>{a.h1(site.name)}</h1>
-          <p className="lead">{a.lead}</p>
+        <div className="container about-hero">
+          <div>
+            <Breadcrumbs lang={lang} items={[{ href: href(lang, "/about"), label: t.common.about }]} />
+            <h1>{a.h1(site.name)}</h1>
+            <p className="lead">{a.lead}</p>
+            <dl className="stats">
+              {t.home.stats.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
+            </dl>
+          </div>
+          <div className="about-hero-photo">
+            <Image src="/images/about-header.jpg" alt={a.headerAlt(site.name)} fill priority sizes="(max-width: 860px) 100vw, 420px" />
+          </div>
         </div>
       </section>
 

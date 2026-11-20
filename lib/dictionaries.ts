@@ -146,6 +146,7 @@ const en = {
       "Today we serve independent perfumers, home-fragrance labels, refill shops and marketplace sellers across Indonesia, from first sample to repeat production.",
     placeholder: "Placeholder copy. Replace with the client’s real story.",
     photoAlt: (name: string) => `Glass perfume bottles with gold, rose-gold and black caps in the ${name} showroom`,
+    headerAlt: (name: string) => `Shelves of perfume bottles on display in the ${name} showroom, Jakarta Pusat`,
     valuesEyebrow: "What we stand for",
     valuesH: "Our values",
     values: [
@@ -400,6 +401,7 @@ const id: Dict = {
       "Kini kami melayani perfumer independen, brand pengharum ruangan, toko refill dan seller marketplace di seluruh Indonesia, dari sampel pertama sampai produksi ulang.",
     placeholder: "Teks contoh. Ganti dengan cerita asli klien.",
     photoAlt: (name: string) => `Botol parfum kaca dengan tutup emas, rose gold dan hitam di showroom ${name}`,
+    headerAlt: (name: string) => `Rak botol parfum yang dipajang di showroom ${name}, Jakarta Pusat`,
     valuesEyebrow: "Prinsip kami",
     valuesH: "Nilai-nilai kami",
     values: [

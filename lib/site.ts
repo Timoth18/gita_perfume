@@ -17,7 +17,7 @@ export const site = {
   locale: "en_US",
   phone: "+62 812-9231-3443",
   whatsapp: "6281292313443", // digits only, for wa.me links
-  email: "hello@gitaperfumebottle.com", // PLACEHOLDER
+  email: "gitaperfume@gmail.com",
   address: {
     street: "Jl. KH. Hasyim Ashari No. 137",
     city: "Jakarta Pusat",

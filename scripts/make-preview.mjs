@@ -32,4 +32,6 @@ fs.mkdirSync(path.join(dst, "assets"), { recursive: true });
 fs.cpSync(path.join(dst, "_next/static/css"), path.join(dst, "assets/static/css"), { recursive: true });
 fs.rmSync(path.join(dst, "_next"), { recursive: true, force: true });
 for (const f of walk(dst)) if (f.endsWith(".txt") && !f.endsWith("robots.txt")) fs.rmSync(f);
+// The site lives under /id and /en; the root page just opens the Indonesian version.
+fs.writeFileSync(path.join(dst, "index.html"), '<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=id.html"><a href="id.html">Bahasa Indonesia</a> · <a href="en.html">English</a>\n');
 console.log("preview written to", dst);

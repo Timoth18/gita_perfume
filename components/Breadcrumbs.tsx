@@ -1,14 +1,17 @@
 import Link from "next/link";
 import JsonLd from "./JsonLd";
+import { getDict } from "@/lib/dictionaries";
+import { href, type Lang } from "@/lib/i18n";
 import { site } from "@/lib/site";
 
 type Crumb = { href: string; label: string };
 
-export default function Breadcrumbs({ items }: { items: Crumb[] }) {
-  const all = [{ href: "/", label: "Home" }, ...items];
+export default function Breadcrumbs({ items, lang }: { items: Crumb[]; lang: Lang }) {
+  const c = getDict(lang).common;
+  const all = [{ href: href(lang, "/"), label: c.home }, ...items];
   return (
     <>
-      <nav aria-label="Breadcrumb" className="breadcrumbs">
+      <nav aria-label={c.breadcrumb} className="breadcrumbs">
         <ol>
           {all.map((c, i) => (
             <li key={c.href}>

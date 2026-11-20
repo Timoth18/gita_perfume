@@ -19,6 +19,9 @@ export type Category = {
   shape: Shape;
 };
 
+/** Category copy as written in the catalog data: English plus Indonesian. */
+type CategoryRow = Category & { nameId: string; blurbId: string };
+
 /** Closure as written in the catalog: drat/ulir/putar = screw, easy pump/semi press, crimp/press, roll on. */
 export type Closure = "screw" | "easy-pump" | "crimp" | "roll-on" | "screw-or-semi-press" | "ask";
 
@@ -42,14 +45,21 @@ export type Product = {
   featured?: boolean;
 };
 
-export const categories: Category[] = [
-  { slug: "screw-spray-bottles", name: "Screw-neck Spray Bottles", blurb: "Glass spray bottles with a screw-on (drat/ulir) pump, 18 ml to 150 ml.", shape: "square" },
-  { slug: "easy-pump-spray-bottles", name: "Easy-pump Spray Bottles", blurb: "Easy-pump / semi-press sprayers that fit without a crimping tool.", shape: "round" },
-  { slug: "crimp-spray-bottles", name: "Crimp Spray Bottles", blurb: "Crimp (press) neck bottles for a sealed, factory finish.", shape: "tall" },
-  { slug: "mini-travel-sprays", name: "Mini & Travel Sprays", blurb: "FX 13–15 ml and pen sprays, 3 ml to 15 ml, for decants and testers.", shape: "atomizer" },
-  { slug: "roll-on-bottles", name: "Roll-on Bottles", blurb: "Roll-on bottles from 3 ml to 15 ml for oil perfumes and attars.", shape: "rollon" },
-  { slug: "frosted-gradient-bottles", name: "Frosted & Gradient Bottles", blurb: "Bestselling shapes in frosted and gradient colours.", shape: "flask" },
-  { slug: "pre-order-bottles", name: "Pre-order Bottles", blurb: "The GP series and other new designs, available to order ahead.", shape: "square" },
+const categoryRows: CategoryRow[] = [
+  { slug: "screw-spray-bottles", name: "Screw-neck Spray Bottles", blurb: "Glass spray bottles with a screw-on (drat/ulir) pump, 18 ml to 150 ml.", shape: "square",
+    nameId: "Botol Spray Drat", blurbId: "Botol parfum kaca dengan spray drat (ulir), ukuran 18 ml sampai 150 ml." },
+  { slug: "easy-pump-spray-bottles", name: "Easy-pump Spray Bottles", blurb: "Easy-pump / semi-press sprayers that fit without a crimping tool.", shape: "round",
+    nameId: "Botol Spray Easy Pump", blurbId: "Spray easy pump / semi press, dipasang tanpa alat crimping." },
+  { slug: "crimp-spray-bottles", name: "Crimp Spray Bottles", blurb: "Crimp (press) neck bottles for a sealed, factory finish.", shape: "tall",
+    nameId: "Botol Spray Crimp (Press)", blurbId: "Botol dengan leher crimp (press), dipasang dengan alat crimping." },
+  { slug: "mini-travel-sprays", name: "Mini & Travel Sprays", blurb: "FX 13–15 ml and pen sprays, 3 ml to 15 ml, for decants and testers.", shape: "atomizer",
+    nameId: "Spray Mini & Travel", blurbId: "FX 13–15 ml dan pen spray 3–15 ml, untuk decant dan tester." },
+  { slug: "roll-on-bottles", name: "Roll-on Bottles", blurb: "Roll-on bottles from 3 ml to 15 ml for oil perfumes and attars.", shape: "rollon",
+    nameId: "Botol Roll-on", blurbId: "Botol roll-on 3–15 ml untuk parfum minyak dan attar." },
+  { slug: "frosted-gradient-bottles", name: "Frosted & Gradient Bottles", blurb: "Bestselling shapes in frosted and gradient colours.", shape: "flask",
+    nameId: "Botol Frosted & Gradasi", blurbId: "Botol warna frosted dan gradasi." },
+  { slug: "pre-order-bottles", name: "Pre-order Bottles", blurb: "The GP series and other new designs, available to order ahead.", shape: "square",
+    nameId: "Botol Pre-order", blurbId: "Seri GP dan model-model baru, sistem pre-order." },
 ];
 
 type Row = Pick<Product, "slug" | "name" | "code" | "category" | "closure" | "badge" | "featured"> & { sizes: string };
@@ -273,7 +283,33 @@ const NECK: Record<Closure, string> = {
   ask: "Ask us for closure options",
 };
 
-const SHAPE: Record<string, Shape> = Object.fromEntries(categories.map((c) => [c.slug, c.shape]));
+const NECK_ID: Record<Closure, string> = {
+  screw: "Spray drat (ulir / putar)",
+  "easy-pump": "Spray easy pump / semi press",
+  crimp: "Spray crimp (press)",
+  "roll-on": "Bola roll-on dengan tutup drat",
+  "screw-or-semi-press": "Spray drat atau semi press",
+  ask: "Tanyakan pilihan tutup",
+};
+
+const FINISH_ID: Record<string, string> = {
+  "Gradient colour": "Warna gradasi",
+  "Frosted colour": "Warna frosted",
+  Gradient: "Gradasi",
+  "Mixed colours": "Aneka warna",
+  Matte: "Doff",
+  Marble: "Marmer",
+  "Full black": "Full hitam",
+  "Black cap": "Tutup hitam",
+  "White cap": "Tutup putih",
+  Silver: "Silver",
+  Gold: "Gold",
+  "Clear glass": "Kaca bening",
+  Shiny: "Mengkilap",
+  Aluminium: "Aluminium",
+};
+
+const SHAPE: Record<string, Shape> = Object.fromEntries(categoryRows.map((c) => [c.slug, c.shape]));
 
 function finishesOf(r: Row): string[] {
   const s = `${r.name} ${r.code}`.toLowerCase();
@@ -313,7 +349,21 @@ function summaryOf(r: Row, sizes: string[]) {
   return lead + tail + " Logo printing available on request.";
 }
 
-export const products: Product[] = rows.map((r) => {
+function summaryIdOf(r: Row, sizes: string[]) {
+  const range = sizes.length > 1 ? `${sizes[0]}–${sizes[sizes.length - 1]}` : sizes[0];
+  const kind =
+    r.closure === "roll-on" ? "botol roll-on"
+    : r.closure === "ask" ? "botol parfum kaca"
+    : `botol parfum kaca dengan ${NECK_ID[r.closure].replace(/ \(.*\)/, "").toLowerCase()}`;
+  const lead = `${r.name}: ${kind}, ${range}.`;
+  const tail =
+    r.badge === "Pre-order" ? " Sistem pre-order, tanyakan estimasi waktu dan pilihan warna."
+    : r.badge === "New" ? " Model baru."
+    : " Ready stock, tanpa minimal order.";
+  return lead + tail + " Bisa cetak logo.";
+}
+
+const productsEn: Product[] = rows.map((r) => {
   const sizes = r.sizes.split("/").map((s) => `${s} ml`);
   return {
     ...r,
@@ -329,6 +379,31 @@ export const products: Product[] = rows.map((r) => {
   };
 });
 
-export const getCategory = (slug: string) => categories.find((c) => c.slug === slug);
-export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
-export const productsIn = (cat: string) => products.filter((p) => p.category === cat);
+const productsId: Product[] = rows.map((r, i) => {
+  const en = productsEn[i];
+  return {
+    ...en,
+    material: "Kaca",
+    neck: NECK_ID[r.closure],
+    moq: "1 pcs",
+    finishes: en.finishes.map((f) => FINISH_ID[f] ?? f),
+    summary: summaryIdOf(r, en.sizes),
+  };
+});
+
+const categoriesEn: Category[] = categoryRows.map(({ slug, name, blurb, shape }) => ({ slug, name, blurb, shape }));
+const categoriesId: Category[] = categoryRows.map(({ slug, nameId, blurbId, shape }) => ({ slug, name: nameId, blurb: blurbId, shape }));
+
+type Lang = "id" | "en";
+
+/** Category list in the given language. Slugs are the same in both languages. */
+export const getCategories = (lang: Lang) => (lang === "id" ? categoriesId : categoriesEn);
+/** All products in the given language (names and catalog codes stay as printed in the catalog). */
+export const getProducts = (lang: Lang) => (lang === "id" ? productsId : productsEn);
+export const getCategory = (slug: string, lang: Lang) => getCategories(lang).find((c) => c.slug === slug);
+export const getProduct = (slug: string, lang: Lang) => getProducts(lang).find((p) => p.slug === slug);
+export const productsIn = (cat: string, lang: Lang) => getProducts(lang).filter((p) => p.category === cat);
+
+/** Language-neutral lists (slugs only), for static params and the sitemap. */
+export const categories = categoriesEn;
+export const products = productsEn;

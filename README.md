@@ -14,7 +14,8 @@ Next.js 15 (App Router) + TypeScript, plain CSS. No client-side JS needed for th
 - `lib/site.ts` — company name, phone, WhatsApp, email, address, domain (remaining PLACEHOLDER values marked)
 - `lib/products.ts` — categories and products (moves to a CMS/DB in Phase 2)
 - `components/BottleArt.tsx` — SVG placeholder bottle illustrations; replace with real photos
-- `app/` — pages: `/`, `/catalog`, `/catalog/[category]`, `/products/[slug]`, `/about`, `/contact`
+- `app/[lang]/` — pages in Indonesian (`/id/...`) and English (`/en/...`): home, `catalog`, `catalog/[category]`, `products/[slug]`, `about`, `contact`
+- Languages: copy lives in `lib/dictionaries.ts` (product/category text in `lib/products.ts`). `middleware.ts` sends `/` and old unprefixed links to the visitor's language (switch cookie → browser language → Indonesian). Every page has hreflang alternates and the sitemap lists both languages.
 
 ## SEO included
 Per-page title/description/canonical, Open Graph + Twitter cards, generated OG image,

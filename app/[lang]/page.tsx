@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { categoryPhoto, heroPhoto } from "@/lib/images";
@@ -7,22 +8,18 @@ import ProductCard from "@/components/ProductCard";
 import Showroom from "@/components/Showroom";
 import Shipping from "@/components/Shipping";
 import Warehouse from "@/components/Warehouse";
-import { categories, products } from "@/lib/products";
+import { getDict } from "@/lib/dictionaries";
+import { alternates, href, isLang, type Lang } from "@/lib/i18n";
+import { getCategories, getProducts } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
-const steps = [
-  { t: "Choose", d: "Pick a bottle, cap and box from the catalog, or send us a reference." },
-  { t: "Customise", d: "Screen print, hot-stamp, frosting or colour spray. We send a digital proof." },
-  { t: "Sample", d: "Approve a physical sample before mass production." },
-  { t: "Deliver", d: "Packed safely and shipped anywhere in Indonesia, or picked up from our warehouse." },
-];
+type Props = { params: Promise<{ lang: string }> };
 
-const usps = [
-  { t: "No Minimum Order", d: "No minimum order as long as stock is available." },
-  { t: "Custom logo", d: "Printing, hot-stamping and engraving done in-house." },
-  { t: "Ready stock", d: "Popular sizes ship within 1–3 working days." },
-  { t: "Quality checked", d: "Every batch is leak-tested and inspected before packing." },
-];
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLang(lang)) return {};
+  return { alternates: alternates(lang, "/") };
+}
 
 // Hidden until the client has real customer quotes. To bring the section back,
 // replace these placeholders with real testimonials and set SHOW_TESTIMONIALS to true.
@@ -34,35 +31,34 @@ const testimonials = [
   { q: "They helped us match caps, pumps and boxes in one order, which saved us weeks.", n: "Brand manager, home-fragrance label" },
 ];
 
-export default function Home() {
-  const featured = products.filter((p) => p.featured).slice(0, 8);
+export default async function Home({ params }: Props) {
+  const lang = (await params).lang as Lang;
+  const t = getDict(lang);
+  const h = t.home;
+  const categories = getCategories(lang);
+  const featured = getProducts(lang).filter((p) => p.featured).slice(0, 8);
   const hero = heroPhoto();
   return (
     <>
       <section className="hero">
         <div className="container hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Perfume bottle manufacturer &amp; supplier</p>
-            <h1>Bottles that make your fragrance <em>unforgettable</em></h1>
-            <p className="lead">
-              {site.name} supplies glass perfume bottles, atomizers, roll-ons, caps and custom packaging
-              for perfume brands, refill shops and resellers. No minimum order, custom logo, fast delivery.
-            </p>
+            <p className="eyebrow">{h.eyebrow}</p>
+            <h1>{h.h1a}<em>{h.h1em}</em></h1>
+            <p className="lead">{h.lead(site.name)}</p>
             <div className="cta-row">
-              <Link href="/catalog" className="btn">Browse the catalog</Link>
-              <a href={waLink("Hello Gita, I'd like a quote for perfume bottles.")} className="btn btn-ghost" target="_blank" rel="noopener">
-                Get a quote on WhatsApp
+              <Link href={href(lang, "/catalog")} className="btn">{h.browse}</Link>
+              <a href={waLink(t.wa.quote)} className="btn btn-ghost" target="_blank" rel="noopener">
+                {t.common.getQuoteWa}
               </a>
             </div>
             <dl className="stats">
-              <div><dt>Bottle models</dt><dd>200+</dd></div>
-              <div><dt>Brands served</dt><dd>1,500+</dd></div>
-              <div><dt>Minimum order</dt><dd>1 pc</dd></div>
+              {h.stats.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
             </dl>
           </div>
           {hero ? (
             <div className="hero-photo">
-              <Image src={hero} alt={`Red, black and clear glass perfume bottles with gold and black caps on display at ${site.name}`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
+              <Image src={hero} alt={h.heroAlt(site.name)} fill priority sizes="(max-width: 860px) 100vw, 520px" />
             </div>
           ) : (
             <div className="hero-art" aria-hidden="true">
@@ -74,22 +70,22 @@ export default function Home() {
         </div>
       </section>
 
-      <ClientLogos />
+      <ClientLogos lang={lang} />
 
       <section className="section" aria-labelledby="cat-h">
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">What we make</p>
-              <h2 id="cat-h">Product categories</h2>
+              <p className="eyebrow">{h.catEyebrow}</p>
+              <h2 id="cat-h">{h.catH}</h2>
             </div>
-            <Link href="/catalog" className="link-arrow">View full catalog</Link>
+            <Link href={href(lang, "/catalog")} className="link-arrow">{h.viewCatalog}</Link>
           </div>
           <div className="cat-grid">
             {categories.map((c) => {
               const photo = categoryPhoto(c.slug);
               return (
-              <Link key={c.slug} href={`/catalog/${c.slug}`} className="cat-tile">
+              <Link key={c.slug} href={href(lang, `/catalog/${c.slug}`)} className="cat-tile">
                 {photo ? (
                   <span className="cat-photo"><Image src={photo} alt={c.name} fill sizes="96px" /></span>
                 ) : (
@@ -106,10 +102,10 @@ export default function Home() {
 
       <section className="section section-tint" aria-labelledby="why-h">
         <div className="container">
-          <p className="eyebrow">Why {site.shortName}</p>
-          <h2 id="why-h">Everything your fragrance needs, from one supplier</h2>
+          <p className="eyebrow">{h.whyEyebrow(site.shortName)}</p>
+          <h2 id="why-h">{h.whyH}</h2>
           <ul className="usp-grid">
-            {usps.map((u, i) => (
+            {h.usps.map((u, i) => (
               <li key={u.t}>
                 <span className="usp-num">0{i + 1}</span>
                 <h3>{u.t}</h3>
@@ -117,7 +113,7 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <Warehouse variant="strip" />
+          <Warehouse variant="strip" lang={lang} />
         </div>
       </section>
 
@@ -125,25 +121,25 @@ export default function Home() {
         <div className="container">
           <div className="section-head">
             <div>
-              <p className="eyebrow">Best sellers</p>
-              <h2 id="feat-h">Featured products</h2>
+              <p className="eyebrow">{h.featEyebrow}</p>
+              <h2 id="feat-h">{h.featH}</h2>
             </div>
-            <Link href="/catalog" className="link-arrow">All products</Link>
+            <Link href={href(lang, "/catalog")} className="link-arrow">{h.allProducts}</Link>
           </div>
           <div className="product-grid">
-            {featured.map((p) => <ProductCard key={p.slug} p={p} />)}
+            {featured.map((p) => <ProductCard key={p.slug} p={p} lang={lang} />)}
           </div>
         </div>
       </section>
 
-      <Showroom variant="home" />
+      <Showroom variant="home" lang={lang} />
 
       <section className="section section-dark" aria-labelledby="how-h">
         <div className="container">
-          <p className="eyebrow">How to order</p>
-          <h2 id="how-h">From idea to shelf in four steps</h2>
+          <p className="eyebrow">{h.howEyebrow}</p>
+          <h2 id="how-h">{h.howH}</h2>
           <ol className="steps">
-            {steps.map((s, i) => (
+            {h.steps.map((s, i) => (
               <li key={s.t}>
                 <span className="step-num">{i + 1}</span>
                 <h3>{s.t}</h3>
@@ -154,13 +150,13 @@ export default function Home() {
         </div>
       </section>
 
-      <Shipping />
+      <Shipping lang={lang} />
 
       {SHOW_TESTIMONIALS && (
       <section className="section" aria-labelledby="test-h">
         <div className="container">
-          <p className="eyebrow">Testimonials</p>
-          <h2 id="test-h">Trusted by growing fragrance brands</h2>
+          <p className="eyebrow">{h.testEyebrow}</p>
+          <h2 id="test-h">{h.testH}</h2>
           <div className="quote-grid">
             {testimonials.map((t) => (
               <figure key={t.n} className="quote">
@@ -176,12 +172,12 @@ export default function Home() {
       <section className="cta-band">
         <div className="container cta-band-inner">
           <div>
-            <h2>Ready to bottle your next scent?</h2>
-            <p>Tell us the size, quantity and finish you need. We reply within one working day.</p>
+            <h2>{h.ctaH}</h2>
+            <p>{h.ctaP}</p>
           </div>
           <div className="cta-row">
-            <a href={waLink()} className="btn btn-light" target="_blank" rel="noopener">Chat on WhatsApp</a>
-            <Link href="/contact" className="btn btn-outline-light">Contact form</Link>
+            <a href={waLink(t.wa.default)} className="btn btn-light" target="_blank" rel="noopener">{h.ctaWa}</a>
+            <Link href={href(lang, "/contact")} className="btn btn-outline-light">{h.ctaForm}</Link>
           </div>
         </div>
       </section>

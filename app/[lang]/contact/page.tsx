@@ -3,114 +3,124 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ShopeeIcon from "@/components/ShopeeIcon";
+import WaForm from "@/components/WaForm";
 import { buildingPhoto } from "@/lib/images";
-import { categories } from "@/lib/products";
+import { getDict } from "@/lib/dictionaries";
+import { alternates, href, isLang, type Lang } from "@/lib/i18n";
+import { getCategories } from "@/lib/products";
 import { site, waLink, mapsEmbed, mapsLink } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "Contact Us",
-  description: `Contact ${site.name} for perfume bottle quotes, samples and custom packaging. WhatsApp ${site.phone}, email ${site.email}.`,
-  alternates: { canonical: "/contact" },
-  openGraph: { url: "/contact" },
-};
+type Props = { params: Promise<{ lang: string }> };
 
-const faqs = [
-  { q: "What is your minimum order quantity?", a: "There is no minimum order: you can buy from 1 pc as long as the item is in stock. Custom printing and custom moulds may need a larger run; ask us for details." },
-  { q: "Can you print my logo on the bottle?", a: "Yes. We offer screen printing, hot-stamping, frosting and colour spray. A digital proof is sent before production." },
-  { q: "How long does production take?", a: "Ready-stock items ship in 1–3 working days. Custom orders usually take 2–4 weeks after sample approval." },
-  { q: "Do you ship outside Jakarta?", a: "Yes, we ship to all of Indonesia via cargo and courier partners." },
-];
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { lang } = await params;
+  if (!isLang(lang)) return {};
+  const t = getDict(lang).meta;
+  const description = t.contactDesc(site.name, site.phone, site.email);
+  return {
+    title: t.contactTitle,
+    description,
+    alternates: alternates(lang, "/contact"),
+    openGraph: { url: href(lang, "/contact"), title: t.contactTitle, description },
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: Props) {
+  const lang = (await params).lang as Lang;
+  const t = getDict(lang);
+  const c = t.contact;
+  const faqs = c.faqs;
+  const categories = getCategories(lang);
   const building = buildingPhoto();
   return (
     <>
       <section className="page-hero">
         <div className="container">
-          <Breadcrumbs items={[{ href: "/contact", label: "Contact" }]} />
-          <h1>Contact us</h1>
-          <p className="lead">Request a quote, order samples or ask about custom packaging. We reply within one working day.</p>
+          <Breadcrumbs lang={lang} items={[{ href: href(lang, "/contact"), label: t.common.contact }]} />
+          <h1>{c.h1}</h1>
+          <p className="lead">{c.lead}</p>
         </div>
       </section>
 
       <section className="section section-tight">
         <div className="container contact-grid">
           <div className="contact-cards">
-            <a className="contact-card contact-wa" href={waLink()} target="_blank" rel="noopener">
-              <span className="eyebrow">Fastest</span>
+            <a className="contact-card contact-wa" href={waLink(t.wa.default)} target="_blank" rel="noopener">
+              <span className="eyebrow">{c.fastest}</span>
               <strong>WhatsApp</strong>
               <span>{site.phone}</span>
             </a>
             <a className="contact-card contact-shop" href={site.shopee.url} target="_blank" rel="noopener">
               <span className="contact-shop-icon"><ShopeeIcon size={24} /></span>
-              <span className="eyebrow">Order online</span>
-              <strong>Shopee store</strong>
+              <span className="eyebrow">{c.orderOnline}</span>
+              <strong>{c.shopee}</strong>
               <span>shopee.co.id/{site.shopee.handle}</span>
             </a>
             <a className="contact-card" href={`mailto:${site.email}`}>
-              <span className="eyebrow">Email</span>
+              <span className="eyebrow">{c.email}</span>
               <strong>{site.email}</strong>
             </a>
             <div className="contact-card">
-              <span className="eyebrow">Warehouse &amp; showroom</span>
+              <span className="eyebrow">{c.showroom}</span>
               <strong>{site.address.street}</strong>
               <span>{site.address.city} {site.address.postalCode}, Indonesia</span>
-              <span className="muted small">{site.hours}</span>
+              <span className="muted small">{t.hours}</span>
             </div>
             <div className="map-embed">
               <iframe
                 src={mapsEmbed}
-                title={`Map: ${site.name} showroom, ${site.address.street}, ${site.address.city}`}
+                title={c.mapTitle(site.name, site.address.street, site.address.city)}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
               />
-              <a className="small" href={mapsLink} target="_blank" rel="noopener">Open in Google Maps</a>
+              <a className="small" href={mapsLink} target="_blank" rel="noopener">{c.openMaps}</a>
             </div>
             {building && (
               <figure className="building">
                 <div className="building-img">
-                  <Image src={building} alt={`Front of the ${site.name} building, ${site.address.street}, ${site.address.city}`} fill sizes="(max-width: 860px) 100vw, 520px" />
+                  <Image src={building} alt={c.buildingAlt(site.name, site.address.street, site.address.city)} fill sizes="(max-width: 860px) 100vw, 520px" />
                 </div>
-                <figcaption><strong>Look for this building</strong><span className="muted small">White three-storey building with grey shutters on the ground floor.</span></figcaption>
+                <figcaption><strong>{c.buildingH}</strong><span className="muted small">{c.buildingP}</span></figcaption>
               </figure>
             )}
           </div>
 
-          <form className="form" action="#" aria-labelledby="form-h">
-            <h2 id="form-h">Send an enquiry</h2>
+          <WaForm className="form" aria-labelledby="form-h" number={site.whatsapp} greeting={t.wa.default}
+            labels={{ name: c.name, company: c.company, phone: c.phone, email: c.emailLabel, category: lang === "id" ? "Produk" : "Product", qty: lang === "id" ? "Jumlah" : "Quantity", message: c.message }}>
+            <h2 id="form-h">{c.formH}</h2>
             <div className="form-row">
-              <label>Name<input name="name" autoComplete="name" required /></label>
-              <label>Company / brand<input name="company" autoComplete="organization" /></label>
+              <label>{c.name}<input name="name" autoComplete="name" required /></label>
+              <label>{c.company}<input name="company" autoComplete="organization" /></label>
             </div>
             <div className="form-row">
-              <label>WhatsApp number<input name="phone" type="tel" autoComplete="tel" required /></label>
-              <label>Email<input name="email" type="email" autoComplete="email" /></label>
+              <label>{c.phone}<input name="phone" type="tel" autoComplete="tel" required /></label>
+              <label>{c.emailLabel}<input name="email" type="email" autoComplete="email" /></label>
             </div>
             <div className="form-row">
-              <label>Product interest
+              <label>{c.interest}
                 <select name="category" defaultValue="">
-                  <option value="" disabled>Choose a category</option>
+                  <option value="" disabled>{c.chooseCat}</option>
                   {categories.map((c) => <option key={c.slug}>{c.name}</option>)}
                 </select>
               </label>
-              <label>Estimated quantity
+              <label>{c.qty}
                 <select name="qty" defaultValue="">
-                  <option value="" disabled>Choose a range</option>
-                  <option>1–100 pcs</option><option>100–500 pcs</option><option>500–2,000 pcs</option><option>2,000+ pcs</option>
+                  <option value="" disabled>{c.chooseRange}</option>
+                  {(lang === "id" ? ["1–100 pcs", "100–500 pcs", "500–2.000 pcs", "2.000+ pcs"] : ["1–100 pcs", "100–500 pcs", "500–2,000 pcs", "2,000+ pcs"]).map((o) => <option key={o}>{o}</option>)}
                 </select>
               </label>
             </div>
-            <label>Message<textarea name="message" rows={5} placeholder="Size, finish, logo printing, deadline…" /></label>
-            <button type="submit" className="btn">Send enquiry</button>
-            <p className="muted small">Mockup: the form will be connected to email / WhatsApp at deployment.</p>
-          </form>
+            <label>{c.message}<textarea name="message" rows={5} placeholder={c.messagePh} /></label>
+            <button type="submit" className="btn">{c.send}</button>
+            <p className="muted small">{c.formNote}</p>
+          </WaForm>
         </div>
       </section>
 
       <section className="section section-tint" aria-labelledby="faq-h">
         <div className="container narrow">
-          <h2 id="faq-h">Frequently asked questions</h2>
+          <h2 id="faq-h">{c.faqH}</h2>
           <div className="faq">
             {faqs.map((f) => (
               <details key={f.q}><summary>{f.q}</summary><p>{f.a}</p></details>
@@ -144,6 +154,7 @@ export default function ContactPage() {
         data={{
           "@context": "https://schema.org",
           "@type": "FAQPage",
+          inLanguage: lang,
           mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
         }}
       />

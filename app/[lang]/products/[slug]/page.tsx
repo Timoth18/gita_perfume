@@ -7,49 +7,57 @@ import BottleArt from "@/components/BottleArt";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ProductCard from "@/components/ProductCard";
-import { getCategory, getProduct, products, productsIn } from "@/lib/products";
+import { getDict } from "@/lib/dictionaries";
+import { alternates, href, isLang, locales, type Lang } from "@/lib/i18n";
+import { getCategory, getProduct, getProducts, products, productsIn } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
-type Params = { params: Promise<{ slug: string }> };
+type Params = { params: Promise<{ lang: string; slug: string }> };
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  return locales.flatMap((lang) => products.map((p) => ({ lang, slug: p.slug })));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const p = getProduct((await params).slug);
+  const { lang, slug } = await params;
+  if (!isLang(lang)) return {};
+  const p = getProduct(slug, lang);
   if (!p) return {};
+  const description = getDict(lang).meta.productDesc(p.summary, p.sizes.join(", "), p.moq);
   return {
     title: p.name,
-    description: `${p.summary} Sizes: ${p.sizes.join(", ")}. MOQ ${p.moq}.`,
-    alternates: { canonical: `/products/${p.slug}` },
-    openGraph: { url: `/products/${p.slug}`, title: p.name },
+    description,
+    alternates: alternates(lang, `/products/${p.slug}`),
+    openGraph: { url: href(lang, `/products/${p.slug}`), title: p.name, description },
   };
 }
 
 export default async function ProductPage({ params }: Params) {
-  const p = getProduct((await params).slug);
+  const { lang, slug } = (await params) as { lang: Lang; slug: string };
+  const t = getDict(lang);
+  const tp = t.product;
+  const p = getProduct(slug, lang);
   if (!p) notFound();
-  const cat = getCategory(p.category)!;
+  const cat = getCategory(p.category, lang)!;
   const photos = productPhotos(p.slug);
-  const related = productsIn(p.category).filter((x) => x.slug !== p.slug).concat(products.filter((x) => x.featured && x.category !== p.category)).slice(0, 4);
+  const related = productsIn(p.category, lang).filter((x) => x.slug !== p.slug).concat(getProducts(lang).filter((x) => x.featured && x.category !== p.category)).slice(0, 4);
   const specs: [string, string][] = [
-    ["Catalog name", p.code],
-    ...(p.badge === "Pre-order" ? [["Availability", "Pre-order"] as [string, string]] : []),
-    ["Available sizes", p.sizes.join(", ")],
-    ["Material", p.material],
-    ["Neck / closure", p.neck],
-    ["Finishes", p.finishes.join(", ")],
-    ["Minimum order", p.moq],
-    ["Customisation", "Screen print, hot-stamp, frosting, colour spray"],
+    [tp.catalogName, p.code],
+    ...(p.badge === "Pre-order" ? [[tp.availability, tp.preorder] as [string, string]] : []),
+    [tp.sizesAvail, p.sizes.join(", ")],
+    [tp.material, p.material],
+    [tp.neck, p.neck],
+    [tp.finishes, p.finishes.join(", ")],
+    [tp.moq, p.moq],
+    [tp.custom, tp.customVal],
   ];
   return (
     <>
       <section className="section section-tight">
         <div className="container">
-          <Breadcrumbs items={[{ href: "/catalog", label: "Catalog" }, { href: `/catalog/${cat.slug}`, label: cat.name }, { href: `/products/${p.slug}`, label: p.name }]} />
+          <Breadcrumbs lang={lang} items={[{ href: href(lang, "/catalog"), label: t.common.catalog }, { href: href(lang, `/catalog/${cat.slug}`), label: cat.name }, { href: href(lang, `/products/${p.slug}`), label: p.name }]} />
           <div className="pdp">
             <div className="pdp-gallery">
               {photos.length > 0 ? (
@@ -61,7 +69,7 @@ export default async function ProductPage({ params }: Params) {
                     <div className="pdp-thumbs">
                       {photos.slice(1).map((src, i) => (
                         <a key={src} href={src} target="_blank" rel="noopener" className="pdp-thumb has-photo">
-                          <Image src={src} alt={`${p.name}, photo ${i + 2}`} fill sizes="140px" />
+                          <Image src={src} alt={tp.photoN(p.name, i + 2)} fill sizes="140px" />
                         </a>
                       ))}
                     </div>
@@ -81,24 +89,24 @@ export default async function ProductPage({ params }: Params) {
               )}
             </div>
             <div className="pdp-info">
-              <p className="eyebrow">{cat.name}{p.badge === "New" && <> · <strong>New</strong></>}</p>
+              <p className="eyebrow">{cat.name}{p.badge === "New" && <> · <strong>{tp.newBadge}</strong></>}</p>
               <h1>{p.name}</h1>
               <p className="lead">{p.summary}</p>
               <div className="option-group">
-                <p className="option-label">Sizes</p>
+                <p className="option-label">{tp.sizes}</p>
                 <ul className="pills">{p.sizes.map((s) => <li key={s}>{s}</li>)}</ul>
               </div>
               <div className="option-group">
-                <p className="option-label">Finishes</p>
+                <p className="option-label">{tp.finishes}</p>
                 <ul className="pills">{p.finishes.map((s) => <li key={s}>{s}</li>)}</ul>
               </div>
               <div className="cta-row">
-                <a className="btn" href={waLink(`Hello Gita, I'd like a quote for ${p.name} (${p.code}).`)} target="_blank" rel="noopener">Request a quote</a>
-                <Link className="btn btn-ghost" href="/contact">Ask a question</Link>
+                <a className="btn" href={waLink(t.wa.product(p.name, p.code))} target="_blank" rel="noopener">{tp.quote}</a>
+                <Link className="btn btn-ghost" href={href(lang, "/contact")}>{tp.ask}</Link>
               </div>
-              <p className="muted small">Prices depend on quantity and customisation. We usually reply within one working day.</p>
+              <p className="muted small">{tp.priceNote}</p>
               <table className="spec-table">
-                <caption>Specifications</caption>
+                <caption>{tp.specs}</caption>
                 <tbody>
                   {specs.map(([k, v]) => (
                     <tr key={k}><th scope="row">{k}</th><td>{v}</td></tr>
@@ -111,8 +119,8 @@ export default async function ProductPage({ params }: Params) {
       </section>
       <section className="section section-tint" aria-labelledby="rel-h">
         <div className="container">
-          <h2 id="rel-h">You may also need</h2>
-          <div className="product-grid">{related.map((r) => <ProductCard key={r.slug} p={r} />)}</div>
+          <h2 id="rel-h">{tp.related}</h2>
+          <div className="product-grid">{related.map((r) => <ProductCard key={r.slug} p={r} lang={lang} />)}</div>
         </div>
       </section>
       <JsonLd
@@ -124,7 +132,8 @@ export default async function ProductPage({ params }: Params) {
           category: cat.name,
           material: p.material,
           brand: { "@type": "Brand", name: site.name },
-          url: `${site.url}/products/${p.slug}`,
+          url: `${site.url}${href(lang, `/products/${p.slug}`)}`,
+          inLanguage: lang,
           ...(photos.length ? { image: photos.map((s) => `${site.url}${s}`) } : {}),
           // Phase 2: add image, offers (price / availability) once real data exists.
         }}

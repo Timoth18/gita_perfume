@@ -1,16 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { captionFromFile, showroomPhotos } from "@/lib/images";
+import { getDict } from "@/lib/dictionaries";
+import { href, type Lang } from "@/lib/i18n";
 import { site, waLink } from "@/lib/site";
 
-const altFor = (src: string) => `${captionFromFile(src)} at the ${site.name} showroom in ${site.address.city}`;
+const key = (src: string) => src.split("/").pop()!.replace(/\.[^.]+$/, "").replace(/^\d+[-_ ]*/, "");
 
 /**
  * Showroom photos from /public/images/showroom.
  * "home": a split teaser (two overlapping photos + copy). "about": a captioned photo gallery.
  * Renders nothing when the folder is empty.
  */
-export default function Showroom({ variant }: { variant: "home" | "about" }) {
+export default function Showroom({ variant, lang }: { variant: "home" | "about"; lang: Lang }) {
+  const t = getDict(lang);
+  const s = t.showroom;
+  const caption = (src: string) => s.captions[key(src)] ?? captionFromFile(src);
+  const altFor = (src: string) => s.alt(caption(src), site.name, site.address.city);
   const photos = showroomPhotos();
   if (photos.length === 0) return null;
 
@@ -26,16 +32,13 @@ export default function Showroom({ variant }: { variant: "home" | "about" }) {
             )}
           </div>
           <div>
-            <p className="eyebrow">Our showroom</p>
-            <h2 id="showroom-h">See every bottle <em>in person</em></h2>
-            <p className="lead">
-              Walk through hundreds of bottles, caps and closures on display in {site.address.city}. Hold the glass,
-              compare finishes and match caps before you order.
-            </p>
+            <p className="eyebrow">{s.eyebrow}</p>
+            <h2 id="showroom-h">{s.homeH1}<em>{s.homeHem}</em></h2>
+            <p className="lead">{s.homeLead(site.address.city)}</p>
             <div className="cta-row">
-              <Link href="/about#showroom" className="btn">Tour the showroom</Link>
-              <a href={waLink("Hello Gita, I'd like to visit your showroom.")} className="btn btn-ghost" target="_blank" rel="noopener">
-                Book a visit
+              <Link href={`${href(lang, "/about")}#showroom`} className="btn">{s.tour}</Link>
+              <a href={waLink(t.wa.visit)} className="btn btn-ghost" target="_blank" rel="noopener">
+                {s.book}
               </a>
             </div>
           </div>
@@ -49,20 +52,17 @@ export default function Showroom({ variant }: { variant: "home" | "about" }) {
       <div className="container">
         <div className="section-head">
           <div>
-            <p className="eyebrow">Our showroom</p>
-            <h2 id="showroom-h">Come and see the collection</h2>
+            <p className="eyebrow">{s.eyebrow}</p>
+            <h2 id="showroom-h">{s.aboutH}</h2>
           </div>
-          <a href={waLink("Hello Gita, I'd like to visit your showroom.")} className="link-arrow" target="_blank" rel="noopener">Book a visit</a>
+          <a href={waLink(t.wa.visit)} className="link-arrow" target="_blank" rel="noopener">{s.book}</a>
         </div>
-        <p className="lead">
-          Our showroom in {site.address.city} displays hundreds of bottle models, caps and closures side by side,
-          so you can compare glass, weight and finish before choosing. Visits are welcome {site.hours}.
-        </p>
+        <p className="lead">{s.aboutLead(site.address.city, t.hours)}</p>
         <div className="showroom-gallery">
           {photos.map((src) => (
             <figure key={src} className="showroom-figure">
               <div className="showroom-img"><Image src={src} alt={altFor(src)} fill sizes="(max-width: 640px) 100vw, (max-width: 1180px) 50vw, 560px" /></div>
-              <figcaption>{captionFromFile(src)}</figcaption>
+              <figcaption>{caption(src)}</figcaption>
             </figure>
           ))}
         </div>

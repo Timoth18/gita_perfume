@@ -36,7 +36,17 @@ export default function AboutPage() {
         <div className="container">
           <Breadcrumbs items={[{ href: "/about", label: "About" }]} />
           <h1>About {site.name}</h1>
-          <p className="lead">We help fragrance makers turn a scent into a product people want to hold.</p>
+          <div className="about-hero-head">
+            <p className="lead">We help fragrance makers turn a scent into a product people want to hold.</p>
+            <dl className="stats about-stats">
+              <div><dt>Bottle models</dt><dd>200+</dd></div>
+              <div><dt>Brands served</dt><dd>1,500+</dd></div>
+              <div><dt>Minimum order</dt><dd>1 pc</dd></div>
+            </dl>
+          </div>
+          <div className="about-banner">
+            <Image src="/images/about-banner.jpg" alt={`Shelves of perfume bottles on display in the ${site.name} showroom, Jakarta Pusat`} fill priority sizes="(max-width: 1200px) 100vw, 1160px" />
+          </div>
         </div>
       </section>
 

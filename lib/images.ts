@@ -40,6 +40,12 @@ export const logoFile = () => find("images", "logo") ?? (fs.existsSync(path.join
 /** Warehouse / ready-stock photos (home + about): every image in /public/images/facility, in filename order. */
 export const facilityPhotos = () => list("images/facility");
 
+/** Shipping / logistics steps (home): every image in /public/images/shipping, in filename order. */
+export const shippingPhotos = () => list("images/shipping");
+
+/** Photo of the building front (contact page): /public/images/building.* */
+export const buildingPhoto = () => find("images", "building");
+
 /** Showroom photos (home + about): every image in /public/images/showroom, in filename order. */
 export const showroomPhotos = () => list("images/showroom");
 

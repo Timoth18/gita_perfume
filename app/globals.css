@@ -319,6 +319,24 @@ a.contact-card:hover { border-color: var(--gold-2); }
 .wh-band { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 6px; height: clamp(260px, 32vw, 440px); }
 .wh-band .wh-img { border-radius: 0; height: 100%; }
 
+/* Hero product photo: shown in natural colour (it is a bright studio-style shot) */
+.hero-photo img { filter: none; }
+.hero-photo::after { display: none; }
+
+/* Shipping steps (home): numbered photos, gently staggered */
+.ship-steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }
+.ship-step:nth-child(even) { margin-top: 48px; }
+.ship-img { position: relative; aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; background: var(--tint); }
+.ship-img img { object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.ship-step:hover .ship-img img { transform: scale(1.04); }
+.ship-cap { margin: 12px 0 0; font: 600 1.15rem var(--serif); display: flex; gap: 10px; align-items: baseline; }
+
+/* Building photo (contact page) */
+.building { margin: 0; display: grid; gap: 10px; }
+.building-img { position: relative; aspect-ratio: 15 / 14; border-radius: var(--radius); overflow: hidden; background: var(--tint); }
+.building-img img { object-fit: cover; }
+.building figcaption { display: grid; gap: 2px; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
   .product-grid { grid-template-columns: repeat(3, 1fr); }
@@ -326,6 +344,8 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .client-logo { flex-basis: calc((100% - 2 * 32px) / 3); }
   .usp-grid { grid-template-columns: repeat(2, 1fr); }
   .steps { grid-template-columns: repeat(2, 1fr); }
+  .ship-steps { grid-template-columns: repeat(2, 1fr); }
+  .ship-step:nth-child(even) { margin-top: 0; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 860px) {
@@ -367,6 +387,10 @@ a.contact-card:hover { border-color: var(--gold-2); }
   .wa-fab { width: 52px; height: 52px; right: 14px; bottom: 14px; }
   .showroom-gallery { gap: 12px; }
   .wh-gallery { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  /* Shipping steps become a swipeable row on phones */
+  .ship-steps { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) 6px; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .ship-steps::-webkit-scrollbar { display: none; }
+  .ship-step { flex: 0 0 72%; scroll-snap-align: start; }
   .wh-gallery .wh-figure:first-child { grid-column: 1 / -1; }
   .wh-gallery .wh-figure:first-child .wh-img { aspect-ratio: 4 / 3; }
   .wh-figure figcaption { font-size: 1.05rem; }

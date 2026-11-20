@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CatalogSearch from "./CatalogSearch";
 import ProductCard from "./ProductCard";
 import Breadcrumbs from "./Breadcrumbs";
 import JsonLd from "./JsonLd";
@@ -26,6 +27,12 @@ export default function CatalogView({ lang, title, intro, items, active }: Props
       </section>
       <section className="section section-tight">
         <div className="container">
+          <CatalogSearch
+            label={t.searchLabel}
+            placeholder={t.searchPh}
+            countLabel={{ one: t.count(1), many: t.count(-1).replace("-1", "{n}") }}
+            noResults={t.noResults}
+          />
           <nav aria-label={t.catsAria} className="chips">
             <Link href={href(lang, "/catalog")} className={!active ? "chip active" : "chip"} aria-current={!active ? "page" : undefined}>{t.all}</Link>
             {categories.map((c) => (

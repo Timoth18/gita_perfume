@@ -4,12 +4,18 @@ import { productPhotos } from "@/lib/images";
 import BottleArt from "./BottleArt";
 import { getDict } from "@/lib/dictionaries";
 import { href, type Lang } from "@/lib/i18n";
-import { getCategory, type Product } from "@/lib/products";
+import { getCategory, getProduct, type Product } from "@/lib/products";
 
 export default function ProductCard({ p, lang }: { p: Product; lang: Lang }) {
   const photo = productPhotos(p.slug)[0];
+  // Words the catalog search matches on, in both languages.
+  const search = [
+    p.name, p.code, p.sizes.join(" "),
+    ...(["id", "en"] as const).flatMap((l) => [getCategory(p.category, l)?.name, getProduct(p.slug, l)?.neck, ...(getProduct(p.slug, l)?.finishes ?? [])]),
+    p.badge === "Pre-order" ? "pre-order preorder po" : p.badge === "New" ? "new baru" : "",
+  ].filter(Boolean).join(" ");
   return (
-    <article className="card product-card">
+    <article className="card product-card" data-search={search}>
       <Link href={href(lang, `/products/${p.slug}`)} className="card-link">
         <div className={photo ? "card-media has-photo" : "card-media"}>
           {photo ? (

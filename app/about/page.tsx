@@ -57,7 +57,7 @@ export default function AboutPage() {
             <p className="muted small"><em>Placeholder copy. Replace with the client’s real story.</em></p>
           </div>
           {story ? (
-            <div className="about-photo"><Image src={story} alt={`The ${site.name} team`} fill sizes="(max-width: 860px) 100vw, 480px" /></div>
+            <div className="about-photo"><Image src={story} alt={`Glass perfume bottles with gold, rose-gold and black caps in the ${site.name} showroom`} fill sizes="(max-width: 860px) 100vw, 480px" /></div>
           ) : (
             <div className="about-art" aria-hidden="true">
               <BottleArt shape="flask" glass="#e7e0c9" cap="#6b4f2a" />

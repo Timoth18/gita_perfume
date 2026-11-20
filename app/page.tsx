@@ -62,7 +62,7 @@ export default function Home() {
           </div>
           {hero ? (
             <div className="hero-photo">
-              <Image src={hero} alt={`Glass perfume bottles with gold, rose-gold and black caps on display at ${site.name}`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
+              <Image src={hero} alt={`Red, black and clear glass perfume bottles with gold and black caps on display at ${site.name}`} fill priority sizes="(max-width: 860px) 100vw, 520px" />
             </div>
           ) : (
             <div className="hero-art" aria-hidden="true">

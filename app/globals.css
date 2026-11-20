@@ -328,8 +328,8 @@ a.contact-shop:hover { border-color: #e9a68c; }
 .wh-band .wh-img { border-radius: 0; height: 100%; }
 
 /* Hero product photo: shown in natural colour (it is a bright studio-style shot) */
-.hero-photo img { filter: none; }
-.hero-photo::after { display: none; }
+.hero-photo img, .about-photo img { filter: none; }
+.hero-photo::after, .about-photo::after { display: none; }
 
 /* Shipping steps (home): numbered photos, gently staggered */
 .ship-steps { list-style: none; padding: 0; margin: 32px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; align-items: start; }

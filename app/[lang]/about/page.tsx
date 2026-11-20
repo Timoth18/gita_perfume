@@ -55,7 +55,6 @@ export default async function AboutPage({ params }: Props) {
             <h2>{a.storyH}</h2>
             <p>{a.story1(site.name, site.founded)}</p>
             <p>{a.story2}</p>
-            <p className="muted small"><em>{a.placeholder}</em></p>
           </div>
           {story ? (
             <div className="about-photo"><Image src={story} alt={a.photoAlt(site.name)} fill sizes="(max-width: 860px) 100vw, 480px" /></div>

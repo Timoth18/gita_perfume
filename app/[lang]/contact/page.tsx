@@ -3,6 +3,7 @@ import Image from "next/image";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import JsonLd from "@/components/JsonLd";
 import ShopeeIcon from "@/components/ShopeeIcon";
+import WaForm from "@/components/WaForm";
 import { buildingPhoto } from "@/lib/images";
 import { getDict } from "@/lib/dictionaries";
 import { alternates, href, isLang, type Lang } from "@/lib/i18n";
@@ -85,7 +86,8 @@ export default async function ContactPage({ params }: Props) {
             )}
           </div>
 
-          <form className="form" action="#" aria-labelledby="form-h">
+          <WaForm className="form" aria-labelledby="form-h" number={site.whatsapp} greeting={t.wa.default}
+            labels={{ name: c.name, company: c.company, phone: c.phone, email: c.emailLabel, category: lang === "id" ? "Produk" : "Product", qty: lang === "id" ? "Jumlah" : "Quantity", message: c.message }}>
             <h2 id="form-h">{c.formH}</h2>
             <div className="form-row">
               <label>{c.name}<input name="name" autoComplete="name" required /></label>
@@ -112,7 +114,7 @@ export default async function ContactPage({ params }: Props) {
             <label>{c.message}<textarea name="message" rows={5} placeholder={c.messagePh} /></label>
             <button type="submit" className="btn">{c.send}</button>
             <p className="muted small">{c.formNote}</p>
-          </form>
+          </WaForm>
         </div>
       </section>
 

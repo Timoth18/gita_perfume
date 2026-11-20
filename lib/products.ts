@@ -47,19 +47,19 @@ export type Product = {
 
 const categoryRows: CategoryRow[] = [
   { slug: "screw-spray-bottles", name: "Screw-neck Spray Bottles", blurb: "Glass spray bottles with a screw-on (drat/ulir) pump, 18 ml to 150 ml.", shape: "square",
-    nameId: "Botol Spray Drat", blurbId: "Botol parfum kaca dengan spray drat/ulir, 18 ml sampai 150 ml." },
+    nameId: "Botol Spray Drat", blurbId: "Botol parfum kaca dengan spray drat (ulir), ukuran 18 ml sampai 150 ml." },
   { slug: "easy-pump-spray-bottles", name: "Easy-pump Spray Bottles", blurb: "Easy-pump / semi-press sprayers that fit without a crimping tool.", shape: "round",
-    nameId: "Botol Spray Easy Pump", blurbId: "Spray easy pump / semi press yang bisa dipasang tanpa alat crimping." },
+    nameId: "Botol Spray Easy Pump", blurbId: "Spray easy pump / semi press, bisa dipasang sendiri tanpa alat crimping." },
   { slug: "crimp-spray-bottles", name: "Crimp Spray Bottles", blurb: "Crimp (press) neck bottles for a sealed, factory finish.", shape: "tall",
-    nameId: "Botol Spray Crimp (Press)", blurbId: "Botol leher crimp (press) untuk hasil tersegel serapi buatan pabrik." },
+    nameId: "Botol Spray Crimp (Press)", blurbId: "Botol crimp (press), hasilnya rapat dan rapi kayak buatan pabrik." },
   { slug: "mini-travel-sprays", name: "Mini & Travel Sprays", blurb: "FX 13–15 ml and pen sprays, 3 ml to 15 ml, for decants and testers.", shape: "atomizer",
-    nameId: "Spray Mini & Travel", blurbId: "FX 13–15 ml dan pen spray, 3 ml sampai 15 ml, untuk decant dan tester." },
+    nameId: "Spray Mini & Travel", blurbId: "FX 13–15 ml dan pen spray 3–15 ml, pas untuk decant dan tester." },
   { slug: "roll-on-bottles", name: "Roll-on Bottles", blurb: "Roll-on bottles from 3 ml to 15 ml for oil perfumes and attars.", shape: "rollon",
-    nameId: "Botol Roll-on", blurbId: "Botol roll-on 3 ml sampai 15 ml untuk parfum minyak dan attar." },
+    nameId: "Botol Roll-on", blurbId: "Botol roll-on 3–15 ml untuk parfum minyak dan attar." },
   { slug: "frosted-gradient-bottles", name: "Frosted & Gradient Bottles", blurb: "Bestselling shapes in frosted and gradient colours.", shape: "flask",
-    nameId: "Botol Frosted & Gradasi", blurbId: "Model terlaris dalam warna frosted dan gradasi." },
+    nameId: "Botol Frosted & Gradasi", blurbId: "Model-model laris dalam warna frosted dan gradasi." },
   { slug: "pre-order-bottles", name: "Pre-order Bottles", blurb: "The GP series and other new designs, available to order ahead.", shape: "square",
-    nameId: "Botol Pre-order", blurbId: "Seri GP dan desain baru lainnya, bisa dipesan lebih dulu (pre-order)." },
+    nameId: "Botol Pre-order", blurbId: "Seri GP dan model-model baru, sistem pre-order." },
 ];
 
 type Row = Pick<Product, "slug" | "name" | "code" | "category" | "closure" | "badge" | "featured"> & { sizes: string };
@@ -289,7 +289,7 @@ const NECK_ID: Record<Closure, string> = {
   crimp: "Spray crimp (press)",
   "roll-on": "Bola roll-on dengan tutup drat",
   "screw-or-semi-press": "Spray drat atau semi press",
-  ask: "Tanyakan pilihan tutup ke kami",
+  ask: "Tanya kami pilihan tutupnya",
 };
 
 const FINISH_ID: Record<string, string> = {
@@ -350,17 +350,17 @@ function summaryOf(r: Row, sizes: string[]) {
 }
 
 function summaryIdOf(r: Row, sizes: string[]) {
-  const range = sizes.length > 1 ? `${sizes[0]} sampai ${sizes[sizes.length - 1]}` : sizes[0];
+  const range = sizes.length > 1 ? `${sizes[0]}–${sizes[sizes.length - 1]}` : sizes[0];
   const kind =
     r.closure === "roll-on" ? "botol roll-on"
     : r.closure === "ask" ? "botol parfum kaca"
     : `botol parfum kaca dengan ${NECK_ID[r.closure].replace(/ \(.*\)/, "").toLowerCase()}`;
   const lead = `${r.name}: ${kind}, ${range}.`;
   const tail =
-    r.badge === "Pre-order" ? " Tersedia secara pre-order; tanyakan estimasi waktu dan pilihan warnanya."
-    : r.badge === "New" ? " Baru di katalog kami."
+    r.badge === "Pre-order" ? " Sistem pre-order, tanya kami dulu estimasi waktu dan pilihan warnanya."
+    : r.badge === "New" ? " Model baru."
     : " Ready stock, tanpa minimal order.";
-  return lead + tail + " Bisa cetak logo sesuai permintaan.";
+  return lead + tail + " Bisa cetak logo.";
 }
 
 const productsEn: Product[] = rows.map((r) => {

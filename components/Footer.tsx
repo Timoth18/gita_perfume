@@ -44,7 +44,6 @@ export default function Footer({ lang }: { lang: Lang }) {
       </div>
       <div className="container footer-bottom">
         <span>© {new Date().getFullYear()} {t.rights(site.name)}</span>
-        <span className="muted">{t.mockup}</span>
       </div>
     </footer>
   );

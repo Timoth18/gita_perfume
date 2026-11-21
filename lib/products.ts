@@ -16,11 +16,13 @@ export type Category = {
   slug: string;
   name: string;
   blurb: string;
+  /** Page heading and search title: the words buyers type into Google, e.g. "Botol Spray Parfum Drat". */
+  title: string;
   shape: Shape;
 };
 
 /** Category copy as written in the catalog data: English plus Indonesian. */
-type CategoryRow = Category & { nameId: string; blurbId: string };
+type CategoryRow = Category & { nameId: string; blurbId: string; titleId: string };
 
 /** Closure as written in the catalog: drat/ulir/putar = screw, easy pump/semi press, crimp/press, roll on. */
 export type Closure = "screw" | "easy-pump" | "crimp" | "roll-on" | "screw-or-semi-press" | "ask";
@@ -46,20 +48,34 @@ export type Product = {
 };
 
 const categoryRows: CategoryRow[] = [
-  { slug: "screw-spray-bottles", name: "Screw-neck Spray Bottles", blurb: "Glass spray bottles with a screw-on (drat/ulir) pump, 18 ml to 150 ml.", shape: "square",
-    nameId: "Botol Spray Drat", blurbId: "Botol parfum kaca dengan spray drat (ulir), ukuran 18 ml sampai 150 ml." },
-  { slug: "easy-pump-spray-bottles", name: "Easy-pump Spray Bottles", blurb: "Easy-pump / semi-press sprayers that fit without a crimping tool.", shape: "round",
-    nameId: "Botol Spray Easy Pump", blurbId: "Spray easy pump / semi press, dipasang tanpa alat crimping." },
-  { slug: "crimp-spray-bottles", name: "Crimp Spray Bottles", blurb: "Crimp (press) neck bottles for a sealed, factory finish.", shape: "tall",
-    nameId: "Botol Spray Crimp (Press)", blurbId: "Botol dengan leher crimp (press), dipasang dengan alat crimping." },
+  { slug: "screw-spray-bottles", name: "Screw-neck Spray Bottles", blurb: "Glass perfume spray bottles with a screw-on (drat/ulir) pump, 18 ml to 150 ml.", shape: "square",
+    title: "Screw-neck Perfume Spray Bottles, 18–150 ml",
+    nameId: "Botol Spray Drat", titleId: "Botol Spray Parfum Drat (Ulir) 18–150 ml",
+    blurbId: "Botol spray parfum kaca dengan spray drat (ulir), ukuran 18 ml sampai 150 ml." },
+  { slug: "easy-pump-spray-bottles", name: "Easy-pump Spray Bottles", blurb: "Glass perfume bottles with easy-pump / semi-press sprayers that fit without a crimping tool.", shape: "round",
+    title: "Easy-pump Perfume Spray Bottles",
+    nameId: "Botol Spray Easy Pump", titleId: "Botol Spray Parfum Easy Pump",
+    blurbId: "Botol spray parfum kaca dengan spray easy pump / semi press, dipasang tanpa alat crimping." },
+  { slug: "crimp-spray-bottles", name: "Crimp Spray Bottles", blurb: "Crimp (press) neck perfume bottles for a sealed, factory finish.", shape: "tall",
+    title: "Crimp-neck Perfume Spray Bottles",
+    nameId: "Botol Spray Crimp (Press)", titleId: "Botol Spray Parfum Crimp (Press)",
+    blurbId: "Botol spray parfum kaca dengan leher crimp (press), dipasang dengan alat crimping." },
   { slug: "mini-travel-sprays", name: "Mini & Travel Sprays", blurb: "FX 13–15 ml and pen sprays, 3 ml to 15 ml, for decants and testers.", shape: "atomizer",
-    nameId: "Spray Mini & Travel", blurbId: "FX 13–15 ml dan pen spray 3–15 ml, untuk decant dan tester." },
-  { slug: "roll-on-bottles", name: "Roll-on Bottles", blurb: "Roll-on bottles from 3 ml to 15 ml for oil perfumes and attars.", shape: "rollon",
-    nameId: "Botol Roll-on", blurbId: "Botol roll-on 3–15 ml untuk parfum minyak dan attar." },
-  { slug: "frosted-gradient-bottles", name: "Frosted & Gradient Bottles", blurb: "Bestselling shapes in frosted and gradient colours.", shape: "flask",
-    nameId: "Botol Frosted & Gradasi", blurbId: "Botol warna frosted dan gradasi." },
-  { slug: "pre-order-bottles", name: "Pre-order Bottles", blurb: "The GP series and other new designs, available to order ahead.", shape: "square",
-    nameId: "Botol Pre-order", blurbId: "Seri GP dan model-model baru, sistem pre-order." },
+    title: "Mini & Travel Perfume Sprays, 3–15 ml",
+    nameId: "Spray Mini & Travel", titleId: "Botol Parfum Mini & Travel Spray 3–15 ml",
+    blurbId: "Botol parfum mini FX 13–15 ml dan pen spray 3–15 ml, untuk decant dan tester." },
+  { slug: "roll-on-bottles", name: "Roll-on Bottles", blurb: "Glass roll-on bottles from 3 ml to 15 ml for oil perfumes and attars.", shape: "rollon",
+    title: "Roll-on Perfume Bottles, 3–15 ml",
+    nameId: "Botol Roll-on", titleId: "Botol Roll-on Parfum 3–15 ml",
+    blurbId: "Botol roll-on kaca 3–15 ml untuk parfum minyak dan attar." },
+  { slug: "frosted-gradient-bottles", name: "Frosted & Gradient Bottles", blurb: "Bestselling perfume bottle shapes in frosted and gradient colours.", shape: "flask",
+    title: "Frosted & Gradient Perfume Bottles",
+    nameId: "Botol Frosted & Gradasi", titleId: "Botol Parfum Frosted & Gradasi",
+    blurbId: "Botol parfum kaca warna frosted dan gradasi." },
+  { slug: "pre-order-bottles", name: "Pre-order Bottles", blurb: "The GP series and other new perfume bottle designs, available to order ahead.", shape: "square",
+    title: "Pre-order Perfume Bottles (GP Series)",
+    nameId: "Botol Pre-order", titleId: "Botol Parfum Pre-order Seri GP",
+    blurbId: "Botol parfum seri GP dan model-model baru, sistem pre-order." },
 ];
 
 type Row = Pick<Product, "slug" | "name" | "code" | "category" | "closure" | "badge" | "featured"> & { sizes: string };
@@ -391,8 +407,8 @@ const productsId: Product[] = rows.map((r, i) => {
   };
 });
 
-const categoriesEn: Category[] = categoryRows.map(({ slug, name, blurb, shape }) => ({ slug, name, blurb, shape }));
-const categoriesId: Category[] = categoryRows.map(({ slug, nameId, blurbId, shape }) => ({ slug, name: nameId, blurb: blurbId, shape }));
+const categoriesEn: Category[] = categoryRows.map(({ slug, name, blurb, title, shape }) => ({ slug, name, blurb, title, shape }));
+const categoriesId: Category[] = categoryRows.map(({ slug, nameId, blurbId, titleId, shape }) => ({ slug, name: nameId, blurb: blurbId, title: titleId, shape }));
 
 type Lang = "id" | "en";
 
@@ -407,3 +423,34 @@ export const productsIn = (cat: string, lang: Lang) => getProducts(lang).filter(
 /** Language-neutral lists (slugs only), for static params and the sitemap. */
 export const categories = categoriesEn;
 export const products = productsEn;
+
+/**
+ * What kind of bottle a product is, in the words people search for
+ * ("Botol Spray Parfum", "Botol Roll-on Parfum" / "Perfume Spray Bottle").
+ */
+export function kindOf(p: Product, lang: Lang) {
+  if (p.closure === "roll-on") return lang === "id" ? "Botol Roll-on Parfum" : "Roll-on Perfume Bottle";
+  if (p.closure === "ask") return lang === "id" ? "Botol Parfum Kaca" : "Glass Perfume Bottle";
+  return lang === "id" ? "Botol Spray Parfum" : "Perfume Spray Bottle";
+}
+
+/** Sizes written the way people search them: "30ml, 50ml, 100ml". */
+export const sizesShort = (p: Product) => p.sizes.map((s) => s.replace(" ", "")).join(", ");
+
+/** Search title for a product page, e.g. "ADG Doff, Botol Spray Parfum 30ml, 50ml, 100ml". */
+export const productTitle = (p: Product, lang: Lang) => `${p.name}, ${kindOf(p, lang)} ${sizesShort(p)}`;
+
+/** Photo alt text, e.g. "ADG Doff, botol spray parfum kaca 30ml, 50ml, 100ml". */
+export function productAlt(p: Product, lang: Lang) {
+  const kind = kindOf(p, lang).toLowerCase();
+  const withGlass = lang === "id" ? (kind.includes("kaca") ? kind : `${kind} kaca`) : kind.startsWith("glass") ? kind : `glass ${kind}`;
+  return `${p.name}, ${withGlass} ${sizesShort(p)}`;
+}
+
+/**
+ * Size pages (/catalog/30ml ...): the sizes people search for most ("botol parfum 30ml").
+ * They share the /catalog/<slug> route with the categories.
+ */
+export const sizePages = ["30", "50", "100"].map((n) => ({ slug: `${n}ml`, size: `${n} ml`, n }));
+export const getSizePage = (slug: string) => sizePages.find((s) => s.slug === slug);
+export const productsWithSize = (size: string, lang: Lang) => getProducts(lang).filter((p) => p.sizes.includes(size));

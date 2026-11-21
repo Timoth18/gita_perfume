@@ -9,7 +9,7 @@ import JsonLd from "@/components/JsonLd";
 import ProductCard from "@/components/ProductCard";
 import { getDict } from "@/lib/dictionaries";
 import { alternates, href, isLang, locales, type Lang } from "@/lib/i18n";
-import { getCategory, getProduct, getProducts, products, productsIn } from "@/lib/products";
+import { getCategory, getProduct, getProducts, kindOf, productAlt, products, productsIn, productTitle } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
 type Params = { params: Promise<{ lang: string; slug: string }> };
@@ -26,11 +26,12 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const p = getProduct(slug, lang);
   if (!p) return {};
   const description = getDict(lang).meta.productDesc(p.summary, p.sizes.join(", "), p.moq);
+  const title = productTitle(p, lang);
   return {
-    title: p.name,
+    title,
     description,
     alternates: alternates(lang, `/products/${p.slug}`),
-    openGraph: { url: href(lang, `/products/${p.slug}`), title: p.name, description },
+    openGraph: { url: href(lang, `/products/${p.slug}`), title, description },
   };
 }
 
@@ -63,13 +64,13 @@ export default async function ProductPage({ params }: Params) {
               {photos.length > 0 ? (
                 <>
                   <div className="pdp-main has-photo">
-                    <Image src={photos[0]} alt={p.name} fill priority sizes="(max-width: 860px) 100vw, 560px" />
+                    <Image src={photos[0]} alt={productAlt(p, lang)} fill priority sizes="(max-width: 860px) 100vw, 560px" />
                   </div>
                   {photos.length > 1 && (
                     <div className="pdp-thumbs">
                       {photos.slice(1).map((src, i) => (
                         <a key={src} href={src} target="_blank" rel="noopener" className="pdp-thumb has-photo">
-                          <Image src={src} alt={tp.photoN(p.name, i + 2)} fill sizes="140px" />
+                          <Image src={src} alt={tp.photoN(productAlt(p, lang), i + 2)} fill sizes="140px" />
                         </a>
                       ))}
                     </div>
@@ -91,6 +92,7 @@ export default async function ProductPage({ params }: Params) {
             <div className="pdp-info">
               <p className="eyebrow">{cat.name}{p.badge === "New" && <> · <strong>{tp.newBadge}</strong></>}</p>
               <h1>{p.name}</h1>
+              <p className="pdp-kind">{kindOf(p, lang)} {p.sizes.join(", ")}</p>
               <p className="lead">{p.summary}</p>
               <div className="option-group">
                 <p className="option-label">{tp.sizes}</p>
@@ -127,7 +129,8 @@ export default async function ProductPage({ params }: Params) {
         data={{
           "@context": "https://schema.org",
           "@type": "Product",
-          name: p.name,
+          name: productTitle(p, lang),
+          sku: p.code,
           description: p.summary,
           category: cat.name,
           material: p.material,

@@ -4,26 +4,31 @@ import type { Lang } from "./i18n";
 
 const en = {
   meta: {
-    homeTitle: "Gita Perfume Bottle — Perfume Bottles, Atomizers & Custom Packaging",
+    homeTitle: "Perfume Bottle Supplier Indonesia | Gita Perfume Bottle",
     description:
-      "Gita Perfume Bottle supplies glass perfume bottles, spray atomizers, roll-on bottles, caps and custom packaging for perfume brands, refill shops and resellers in Indonesia. No minimum order, custom logo printing, nationwide shipping.",
+      "Wholesale perfume bottles from Jakarta, Indonesia: glass spray bottles, roll-ons and caps in 30, 50 and 100 ml. No minimum order, custom logo printing, shipping across Indonesia.",
     keywords: [
-      "perfume bottle supplier Indonesia", "perfume bottle supplier Jakarta", "wholesale perfume bottles",
-      "glass perfume bottle", "spray atomizer", "roll-on bottle", "custom perfume bottle Indonesia",
+      "perfume bottle supplier Indonesia", "wholesale perfume bottles", "perfume bottle supplier Jakarta",
+      "glass perfume bottle", "perfume spray bottle", "roll-on perfume bottle", "custom perfume bottle Indonesia",
       "perfume bottles no minimum order", "30 ml perfume bottle", "50 ml perfume bottle", "100 ml perfume bottle",
     ],
     tagline: "Perfume bottles & packaging, made to order",
-    aboutTitle: "About Us",
+    aboutTitle: "About Us, Perfume Bottle Supplier in Jakarta",
     aboutDesc: (name: string, year: string) =>
-      `The story of ${name}: a perfume bottle and packaging supplier in Jakarta helping fragrance brands across Indonesia launch and grow since ${year}.`,
-    contactTitle: "Contact Us",
+      `The story of ${name}: a perfume bottle and packaging supplier in Jakarta, Indonesia, selling wholesale perfume bottles to fragrance brands since ${year}.`,
+    contactTitle: "Contact & Location in Jakarta Pusat",
     contactDesc: (name: string, phone: string, email: string) =>
-      `Contact ${name} in Jakarta for perfume bottle quotes, samples and custom packaging. WhatsApp ${phone}, email ${email}.`,
-    catalogTitle: "Product Catalog — Perfume Spray Bottles, Roll-ons & Travel Sprays",
+      `Contact ${name}, perfume bottle supplier in Jakarta Pusat, Indonesia, for wholesale quotes, samples and custom packaging. WhatsApp ${phone}, email ${email}.`,
+    catalogTitle: "Wholesale Perfume Bottles Catalog, 30, 50 & 100 ml",
     catalogDesc:
-      "Browse 200+ glass perfume bottles: screw-neck, easy-pump and crimp sprays, mini travel sprays, roll-ons, frosted bottles and the GP pre-order series. No minimum order and custom logo printing available.",
-    categoryDesc: (blurb: string, name: string) =>
-      `${blurb} Wholesale ${name.toLowerCase()} with no minimum order and custom logo from Gita Perfume Bottle, Jakarta.`,
+      "Browse 200+ wholesale glass perfume bottles: screw-neck, easy-pump and crimp spray bottles, mini travel sprays, roll-ons, frosted bottles and the GP pre-order series. No minimum order, custom logo printing.",
+    categoryDesc: (blurb: string) =>
+      `${blurb} Wholesale with no minimum order and custom logo printing from Gita Perfume Bottle, perfume bottle supplier in Jakarta, Indonesia.`,
+    sizeTitle: (n: string) => `${n} ml Perfume Bottles`,
+    sizeIntro: (n: string, count: number) =>
+      `${count} glass perfume bottle models in ${n} ml from our catalog, ready stock and pre-order. Order from 1 pc, logo printing available.`,
+    sizeDesc: (n: string, count: number) =>
+      `Wholesale ${n} ml perfume bottles: ${count} glass spray bottle models with no minimum order and custom logo printing. Gita Perfume Bottle, Jakarta, Indonesia.`,
     productDesc: (summary: string, sizes: string, moq: string) => `${summary} Sizes: ${sizes}. MOQ ${moq}.`,
   },
   common: {
@@ -52,16 +57,18 @@ const en = {
     stock: "Hello Gita, I'd like to check stock for a bottle model.",
   },
   home: {
-    eyebrow: "Perfume bottle manufacturer & supplier",
-    h1a: "Bottles that make your fragrance ",
-    h1em: "unforgettable",
+    eyebrow: "Perfume bottle supplier in Indonesia",
+    h1a: "Wholesale perfume bottles, ",
+    h1em: "from 1 pc",
     lead: (name: string) =>
-      `${name} supplies glass perfume bottles, atomizers, roll-ons, caps and custom packaging for perfume brands, refill shops and resellers. No minimum order, custom logo, fast delivery.`,
+      `${name} is a perfume bottle supplier in Jakarta, Indonesia: glass spray bottles, roll-ons, caps and custom packaging for perfume brands, refill shops and resellers. No minimum order, custom logo, shipping across Indonesia.`,
     browse: "Browse the catalog",
     stats: [["Bottle models", "200+"], ["Brands served", "1,500+"], ["Minimum order", "1 pc"]] as [string, string][],
-    heroAlt: (name: string) => `Red, black and clear glass perfume bottles with gold and black caps on display at ${name}`,
+    heroAlt: (name: string) => `Red, black and clear glass perfume bottles with gold and black caps on display at ${name}, Jakarta`,
     catEyebrow: "What we make",
-    catH: "Product categories",
+    catH: "Perfume bottle categories",
+    sizesAria: "Popular sizes",
+    sizeLink: (n: string) => `${n} ml perfume bottles`,
     viewCatalog: "View full catalog",
     whyEyebrow: (short: string) => `Why ${short}`,
     whyH: "Everything your fragrance needs, from one supplier",
@@ -197,6 +204,8 @@ const en = {
       { q: "Can you print my logo on the bottle?", a: "Yes. We offer screen printing, hot-stamping, frosting and colour spray. A digital proof is sent before production." },
       { q: "How long does production take?", a: "Ready-stock items ship in 1–3 working days. Custom orders usually take 2–4 weeks after sample approval." },
       { q: "Do you ship outside Jakarta?", a: "Yes, we ship to all of Indonesia via cargo and courier partners." },
+      { q: "Where is your store?", a: "Our warehouse and showroom are at Jl. KH. Hasyim Ashari No. 137, Jakarta Pusat 10140. You can visit in person, or order on WhatsApp and Shopee." },
+      { q: "Do you sell wholesale?", a: "Yes. Wholesale prices depend on the model, size and quantity. Send us the model and quantity on WhatsApp for a quote." },
     ],
   },
   catalog: {
@@ -205,6 +214,7 @@ const en = {
     all: "All",
     catsAria: "Product categories",
     count: (n: number) => `${n} products`,
+    sizesAria: "Popular sizes",
     searchLabel: "Search the catalog",
     searchPh: "Search by name, size or type, e.g. 30 ml, roll on, GP28",
     noResults: "No bottles match your search. Try another word, or ask us on WhatsApp.",
@@ -233,7 +243,7 @@ const en = {
     photoN: (name: string, n: number) => `${name}, photo ${n}`,
   },
   footer: {
-    blurb: (tagline: string) => `${tagline}. Serving perfume brands, refill shops and resellers across Indonesia.`,
+    blurb: (tagline: string) => `${tagline}. Perfume bottle supplier in Jakarta, serving perfume brands, refill shops and resellers across Indonesia.`,
     products: "Products",
     company: "Company",
     contact: "Contact",
@@ -248,26 +258,32 @@ export type Dict = typeof en;
 
 const id: Dict = {
   meta: {
-    homeTitle: "Gita Perfume Bottle — Supplier Botol Parfum Jakarta, Grosir & Custom, Tanpa Minimal Order",
+    homeTitle: "Supplier Botol Parfum Jakarta, Grosir & Satuan | Gita Perfume Bottle",
     description:
-      "Supplier botol parfum di Jakarta. Menjual botol parfum kaca, botol spray, roll-on, tutup dan kemasan. Harga grosir, tanpa minimal order, bisa custom logo, kirim ke seluruh Indonesia.",
+      "Jual botol parfum grosir dan satuan di Jakarta Pusat. Botol spray parfum, roll-on dan tutup botol parfum kaca ukuran 30ml, 50ml, 100ml. Harga murah, tanpa minimal order, bisa custom logo.",
     keywords: [
-      "supplier botol parfum Jakarta", "supplier botol parfum", "botol parfum grosir", "botol parfum murah",
-      "botol parfum custom", "botol parfum tanpa minimal order", "botol parfum 30ml", "botol parfum 50ml",
-      "botol parfum 100ml", "botol spray parfum", "botol roll on", "jual botol parfum",
+      "botol parfum", "supplier botol parfum", "jual botol parfum", "botol parfum Jakarta",
+      "grosir botol parfum Jakarta Pusat", "botol parfum grosir", "botol parfum murah", "botol parfum custom",
+      "botol parfum tanpa minimal order", "botol parfum 30ml", "botol parfum 50ml", "botol parfum 100ml",
+      "botol spray parfum", "botol parfum kaca", "tutup botol parfum",
     ],
     tagline: "Supplier botol parfum dan kemasan",
-    aboutTitle: "Tentang Kami",
+    aboutTitle: "Tentang Kami, Supplier Botol Parfum Jakarta Pusat",
     aboutDesc: (name: string, year: string) =>
-      `${name} adalah supplier botol parfum di Jakarta sejak ${year}, melayani pembeli di seluruh Indonesia.`,
-    contactTitle: "Kontak",
+      `${name} adalah supplier botol parfum di Jakarta Pusat sejak ${year}. Jual botol parfum grosir dan satuan, kirim ke seluruh Indonesia.`,
+    contactTitle: "Kontak & Lokasi Toko di Jakarta Pusat",
     contactDesc: (name: string, phone: string, email: string) =>
-      `Kontak ${name}, Jakarta. WhatsApp ${phone}, email ${email}. Info harga botol parfum, sampel dan custom kemasan.`,
-    catalogTitle: "Katalog Botol Parfum — Botol Spray, Roll-on & Travel Spray",
+      `Toko botol parfum ${name} di Jakarta Pusat. WhatsApp ${phone}, email ${email}. Info harga grosir, sampel dan botol parfum custom.`,
+    catalogTitle: "Katalog Botol Parfum Kaca 30ml, 50ml, 100ml",
     catalogDesc:
-      "Lebih dari 200 model botol parfum kaca: spray drat, easy pump, crimp, spray mini, roll-on, botol frosted dan seri pre-order GP. Harga grosir, tanpa minimal order, bisa cetak logo.",
-    categoryDesc: (blurb: string, name: string) =>
-      `${blurb} Jual ${name.toLowerCase()} grosir dan satuan, bisa cetak logo. Gita Perfume Bottle, Jakarta.`,
+      "Lebih dari 200 model botol parfum kaca: botol spray parfum drat, easy pump dan crimp, spray mini, roll-on, botol frosted dan seri pre-order GP. Harga grosir, tanpa minimal order, bisa cetak logo.",
+    categoryDesc: (blurb: string) =>
+      `${blurb} Jual grosir dan satuan, tanpa minimal order, bisa cetak logo. Gita Perfume Bottle, Jakarta Pusat.`,
+    sizeTitle: (n: string) => `Botol Parfum ${n}ml`,
+    sizeIntro: (n: string, count: number) =>
+      `${count} model botol parfum kaca ukuran ${n} ml dari katalog kami, ready stock dan pre-order. Minimal order 1 pcs, bisa cetak logo.`,
+    sizeDesc: (n: string, count: number) =>
+      `Jual botol parfum ${n}ml: ${count} model botol spray parfum kaca. Harga grosir, tanpa minimal order, bisa custom logo. Gita Perfume Bottle, Jakarta Pusat.`,
     productDesc: (summary: string, sizes: string, moq: string) => `${summary} Ukuran: ${sizes}. Minimal order ${moq}.`,
   },
   common: {
@@ -296,16 +312,18 @@ const id: Dict = {
     stock: "Halo Gita, saya mau cek stok botol.",
   },
   home: {
-    eyebrow: "Supplier botol parfum di Jakarta",
-    h1a: "Botol parfum kaca, ",
+    eyebrow: "Botol parfum kaca, spray dan roll-on",
+    h1a: "Supplier botol parfum di Jakarta, ",
     h1em: "grosir dan satuan",
     lead: (name: string) =>
-      `${name} menjual botol parfum kaca, botol spray, roll-on, tutup dan kemasan. Tidak ada minimal order, bisa cetak logo, dan dikirim ke seluruh Indonesia.`,
+      `${name} menjual botol parfum kaca, botol spray parfum, roll-on, tutup botol parfum dan kemasan, ukuran 30ml, 50ml, 100ml dan lainnya. Tanpa minimal order, bisa cetak logo, dikirim dari Jakarta Pusat ke seluruh Indonesia.`,
     browse: "Lihat katalog",
     stats: [["Model botol", "200+"], ["Brand pelanggan", "1.500+"], ["Minimal order", "1 pcs"]] as [string, string][],
-    heroAlt: (name: string) => `Botol parfum kaca merah, hitam dan bening dengan tutup gold dan hitam di showroom ${name}`,
+    heroAlt: (name: string) => `Botol parfum kaca merah, hitam dan bening dengan tutup gold dan hitam di showroom ${name}, Jakarta Pusat`,
     catEyebrow: "Produk",
-    catH: "Kategori botol",
+    catH: "Kategori botol parfum",
+    sizesAria: "Ukuran populer",
+    sizeLink: (n: string) => `Botol parfum ${n}ml`,
     viewCatalog: "Lihat semua",
     whyEyebrow: (short: string) => `Kenapa ${short}`,
     whyH: "Botol, tutup dan kemasan dalam satu tempat",
@@ -336,10 +354,10 @@ const id: Dict = {
   clients: { h: "Dipakai brand parfum di seluruh Indonesia", note: "Contoh logo. Logo klien asli akan dipasang di sini." },
   showroom: {
     eyebrow: "Showroom",
-    homeH1: "Showroom kami ",
-    homeHem: "di Jakarta",
+    homeH1: "Showroom botol parfum ",
+    homeHem: "di Jakarta Pusat",
     homeLead: (city: string) =>
-      `Ratusan model botol, tutup dan sprayer dipajang di showroom kami di ${city}. Silakan datang untuk melihat dan memilih langsung.`,
+      `Ratusan model botol parfum, tutup dan sprayer dipajang di showroom kami di ${city}. Silakan datang untuk melihat dan memilih langsung.`,
     tour: "Lihat showroom",
     book: "Atur kunjungan",
     aboutH: "Showroom",
@@ -353,7 +371,7 @@ const id: Dict = {
   },
   warehouse: {
     readyEyebrow: "Ready stock",
-    bandH: (city: string) => `Gudang kami di ${city}`,
+    bandH: (city: string) => `Gudang grosir botol parfum di ${city}`,
     check: "Cek stok",
     eyebrow: "Gudang",
     aboutH: (city: string) => `Gudang ready stock di ${city}`,
@@ -453,14 +471,17 @@ const id: Dict = {
       { q: "Apakah bisa cetak logo di botol?", a: "Bisa. Tersedia sablon, hot stamping, frosting dan spray warna. Desain dikirim dulu untuk dicek sebelum produksi." },
       { q: "Berapa lama proses produksi?", a: "Barang ready stock dikirim dalam 1–3 hari kerja. Order custom sekitar 2–4 minggu setelah sampel disetujui." },
       { q: "Apakah bisa kirim ke luar Jakarta?", a: "Bisa, kami kirim ke seluruh Indonesia lewat kargo dan kurir." },
+      { q: "Di mana lokasi toko?", a: "Gudang dan showroom kami di Jl. KH. Hasyim Ashari No. 137, Jakarta Pusat 10140. Bisa datang langsung, atau order lewat WhatsApp dan Shopee." },
+      { q: "Apakah bisa beli grosir?", a: "Bisa. Harga grosir tergantung model, ukuran dan jumlah order. Kirim model dan jumlahnya lewat WhatsApp untuk info harga." },
     ],
   },
   catalog: {
     h1: "Katalog botol parfum",
-    intro: "Botol parfum kaca ukuran 3 ml sampai 150 ml, dari katalog Oktober 2026. Minimal order 1 pcs, semua bisa cetak logo.",
+    intro: "Botol parfum kaca dan botol spray parfum ukuran 3 ml sampai 150 ml, dari katalog Oktober 2026. Minimal order 1 pcs, semua bisa cetak logo.",
     all: "Semua",
     catsAria: "Kategori produk",
     count: (n: number) => `${n} produk`,
+    sizesAria: "Ukuran populer",
     searchLabel: "Cari di katalog",
     searchPh: "Cari nama, ukuran atau jenis, misal 30 ml, roll on, GP28",
     noResults: "Botol tidak ditemukan. Coba kata lain atau tanya kami di WhatsApp.",
@@ -489,7 +510,7 @@ const id: Dict = {
     photoN: (name: string, n: number) => `${name}, foto ${n}`,
   },
   footer: {
-    blurb: (tagline: string) => `${tagline} di Jakarta. Kirim ke seluruh Indonesia.`,
+    blurb: (tagline: string) => `${tagline} di Jakarta Pusat. Grosir dan satuan, kirim ke seluruh Indonesia.`,
     products: "Produk",
     company: "Info",
     contact: "Kontak",

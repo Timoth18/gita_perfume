@@ -7,7 +7,8 @@ import WhatsAppFab from "@/components/WhatsAppFab";
 import JsonLd from "@/components/JsonLd";
 import { getDict } from "@/lib/dictionaries";
 import { alternates, isLang, locales, ogLocale, type Lang } from "@/lib/i18n";
-import { site } from "@/lib/site";
+import { heroPhoto, logoFile } from "@/lib/images";
+import { businessId, businessLd, site } from "@/lib/site";
 
 type Props = { children: React.ReactNode; params: Promise<{ lang: string }> };
 
@@ -50,24 +51,15 @@ export default async function RootLayout({ children, params }: Props) {
   const { lang } = await params;
   if (!isLang(lang)) notFound();
   const t = getDict(lang as Lang);
-  const orgLd = {
+  const orgLd = businessLd(lang, t.meta.description, { image: heroPhoto(), logo: logoFile() });
+  const webLd = {
     "@context": "https://schema.org",
-    "@type": "Organization",
+    "@type": "WebSite",
+    "@id": `${site.url}/#website`,
     name: site.name,
-    url: site.url,
-    description: t.meta.description,
-    email: site.email,
-    telephone: site.phone,
-    foundingDate: site.founded,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.address.street,
-      addressLocality: site.address.city,
-      addressRegion: site.address.region,
-      postalCode: site.address.postalCode,
-      addressCountry: site.address.country,
-    },
-    sameAs: Object.values(site.socials),
+    url: `${site.url}/${lang}`,
+    inLanguage: lang,
+    publisher: { "@id": businessId },
   };
   return (
     <html lang={lang}>
@@ -86,6 +78,7 @@ export default async function RootLayout({ children, params }: Props) {
         <Footer lang={lang} />
         <WhatsAppFab lang={lang} />
         <JsonLd data={orgLd} />
+        <JsonLd data={webLd} />
       </body>
     </html>
   );

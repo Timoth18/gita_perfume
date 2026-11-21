@@ -177,6 +177,10 @@ a.lang-opt:hover { color: var(--gold); }
 .chip { flex: 0 0 auto; text-decoration: none; padding: 9px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: .92rem; }
 .chip:hover { border-color: var(--gold-2); }
 .chip.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chips-sizes { margin-top: 10px; align-items: center; }
+.cat-grid + .chips-sizes { margin-top: 24px; }
+.chips-sizes .chip { padding: 6px 14px; font-size: .86rem; }
+.chips-label { flex: 0 0 auto; font-size: .86rem; color: var(--muted); }
 .result-count { margin: 18px 0; }
 .note-box { margin-top: 48px; background: var(--tint); border-radius: var(--radius); padding: 28px; display: grid; grid-template-columns: 1fr auto; gap: 8px 24px; align-items: center; }
 .note-box h2 { font-size: 1.6rem; margin: 0; grid-column: 1; }
@@ -192,6 +196,7 @@ a.lang-opt:hover { color: var(--gold); }
 .pdp-thumb { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; aspect-ratio: 1; padding: 14%; }
 .pdp-thumb:first-child { border-color: var(--ink); }
 .pdp-info h1 { font-size: clamp(2rem, 4vw, 3rem); }
+.pdp-kind { margin: -8px 0 14px; color: var(--muted); font-size: 1.02rem; }
 .option-group { margin: 18px 0; }
 .option-label { font-weight: 600; font-size: .9rem; margin: 0 0 8px; }
 .pills { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }

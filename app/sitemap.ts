@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { href, locales } from "@/lib/i18n";
-import { categories, products } from "@/lib/products";
+import { categories, products, sizePages } from "@/lib/products";
 import { site } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/about", "monthly", 0.6],
     ["/contact", "monthly", 0.7],
     ...categories.map((c) => [`/catalog/${c.slug}`, "weekly", 0.8] as [string, Freq, number]),
+    ...sizePages.map((s) => [`/catalog/${s.slug}`, "weekly", 0.8] as [string, Freq, number]),
     ...products.map((p) => [`/products/${p.slug}`, "monthly", 0.7] as [string, Freq, number]),
   ];
   return pages.flatMap(([path, changeFrequency, priority]) =>

@@ -5,7 +5,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import JsonLd from "./JsonLd";
 import { getDict } from "@/lib/dictionaries";
 import { href, type Lang } from "@/lib/i18n";
-import { getCategories, type Product } from "@/lib/products";
+import { getCategories, sizePages, type Product } from "@/lib/products";
 import { site } from "@/lib/site";
 
 type Props = { lang: Lang; title: string; intro: string; items: Product[]; active?: string };
@@ -38,6 +38,14 @@ export default function CatalogView({ lang, title, intro, items, active }: Props
             {categories.map((c) => (
               <Link key={c.slug} href={href(lang, `/catalog/${c.slug}`)} className={active === c.slug ? "chip active" : "chip"} aria-current={active === c.slug ? "page" : undefined}>
                 {c.name}
+              </Link>
+            ))}
+          </nav>
+          <nav aria-label={t.sizesAria} className="chips chips-sizes">
+            <span className="chips-label">{t.sizesAria}:</span>
+            {sizePages.map((s) => (
+              <Link key={s.slug} href={href(lang, `/catalog/${s.slug}`)} className={active === s.slug ? "chip active" : "chip"} aria-current={active === s.slug ? "page" : undefined}>
+                {s.size}
               </Link>
             ))}
           </nav>

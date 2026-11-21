@@ -62,3 +62,40 @@ export function waLink(text?: string) {
   const msg = text ?? getDict("id").wa.default;
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(msg)}`;
 }
+
+/** Stable id of the business in structured data, so every page's JSON-LD points at one entity. */
+export const businessId = `${site.url}/#business`;
+
+/**
+ * The shop as a schema.org Store (a LocalBusiness), for Google's local results:
+ * name, Jakarta Pusat address, phone, map link and opening hours.
+ */
+export function businessLd(lang: Lang, description: string, media: { image?: string; logo?: string } = {}) {
+  const abs = (p?: string) => (p ? `${site.url}${p}` : undefined);
+  return {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "@id": businessId,
+    name: site.name,
+    url: `${site.url}/${lang}`,
+    description,
+    ...(media.image ? { image: abs(media.image) } : {}),
+    ...(media.logo ? { logo: abs(media.logo) } : {}),
+    email: site.email,
+    telephone: site.phone,
+    foundingDate: site.founded,
+    openingHours: "Mo-Sa 08:00-17:00", // PLACEHOLDER, same as site.hours
+    hasMap: mapsLink,
+    areaServed: { "@type": "Country", name: "Indonesia" },
+    knowsAbout: ["botol parfum", "botol spray parfum", "botol parfum kaca", "tutup botol parfum", "perfume bottles"],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      postalCode: site.address.postalCode,
+      addressCountry: site.address.country,
+    },
+    sameAs: Object.values(site.socials),
+  };
+}

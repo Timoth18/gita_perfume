@@ -10,7 +10,7 @@ import Shipping from "@/components/Shipping";
 import Warehouse from "@/components/Warehouse";
 import { getDict } from "@/lib/dictionaries";
 import { alternates, href, isLang, type Lang } from "@/lib/i18n";
-import { getCategories, getProducts } from "@/lib/products";
+import { getCategories, getProducts, sizePages } from "@/lib/products";
 import { site, waLink } from "@/lib/site";
 
 type Props = { params: Promise<{ lang: string }> };
@@ -87,7 +87,7 @@ export default async function Home({ params }: Props) {
               return (
               <Link key={c.slug} href={href(lang, `/catalog/${c.slug}`)} className="cat-tile">
                 {photo ? (
-                  <span className="cat-photo"><Image src={photo} alt={c.name} fill sizes="96px" /></span>
+                  <span className="cat-photo"><Image src={photo} alt={c.title} fill sizes="96px" /></span>
                 ) : (
                   <BottleArt shape={c.shape} title={c.name} glass={c.shape === "box" ? "#2d2a26" : "#e9dfd0"} cap="#b08a4a" />
                 )}
@@ -97,6 +97,12 @@ export default async function Home({ params }: Props) {
               );
             })}
           </div>
+          <nav aria-label={h.sizesAria} className="chips chips-sizes">
+            <span className="chips-label">{h.sizesAria}:</span>
+            {sizePages.map((s) => (
+              <Link key={s.slug} href={href(lang, `/catalog/${s.slug}`)} className="chip">{h.sizeLink(s.n)}</Link>
+            ))}
+          </nav>
         </div>
       </section>
 

@@ -132,27 +132,6 @@ export default async function ContactPage({ params }: Props) {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: site.name,
-          url: site.url,
-          telephone: site.phone,
-          email: site.email,
-          openingHours: "Mo-Sa 08:00-17:00",
-          hasMap: mapsLink,
-          sameAs: Object.values(site.socials),
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: site.address.street,
-            addressLocality: site.address.city,
-            addressRegion: site.address.region,
-            postalCode: site.address.postalCode,
-            addressCountry: site.address.country,
-          },
-        }}
-      />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
           "@type": "FAQPage",
           inLanguage: lang,
           mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
